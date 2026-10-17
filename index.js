@@ -1,5 +1,6 @@
 // ===============================
 // ORIGIN SMP — FULL FIXED index.js
+// HOSTS DASHBOARD + API
 // ===============================
 
 const {
@@ -18,6 +19,16 @@ const path = require("path");
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// ===============================
+// SERVE DASHBOARD FILES
+// ===============================
+app.use(express.static(path.join(__dirname)));
+
+// Root route → load dashboard
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "dashboard.html"));
+});
 
 // ===============================
 // DISCORD CLIENT
@@ -63,27 +74,6 @@ function getGuild() {
   }
   return guild;
 }
-
-// ===============================
-// ROOT FIX — REMOVES "Cannot GET /"
-// ===============================
-app.get("/", (req, res) => {
-  res.send(`
-    <h1>Origin SMP API</h1>
-    <p>Your backend is running.</p>
-    <p>Dashboard is not hosted here.</p>
-    <p>Available endpoints:</p>
-    <ul>
-      <li>/api/channels</li>
-      <li>/api/roles</li>
-      <li>/api/members</li>
-      <li>/api/status</li>
-      <li>/api/saveAntiRaid</li>
-      <li>/api/deployTickets</li>
-      <li>/api/saveStaff</li>
-    </ul>
-  `);
-});
 
 // ===============================
 // CHANNELS ENDPOINT
@@ -199,5 +189,5 @@ app.post(`${API_PREFIX}/saveStaff`, (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🌐 Origin SMP API running on port ${PORT}`);
+  console.log(`🌐 Origin SMP API + Dashboard running on port ${PORT}`);
 });
