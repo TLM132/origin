@@ -137,6 +137,5 @@ app.post(`${API_PREFIX}/saveStaff`, async (req, res) => {
 // ===============================
 // EXPRESS SERVER
 // ===============================
-app.listen(3000, () => {
-  console.log("Origin SMP API running on port 3000");
-});
+client.login(process.env.BOT_TOKEN);
+
