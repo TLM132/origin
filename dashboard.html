@@ -6,148 +6,114 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    :root {
+      --bg: #05060a;
+      --bg-alt: #0b0d12;
+      --accent: #ff7a1a;
+      --accent-soft: rgba(255, 122, 26, 0.2);
+      --accent-glow: 0 0 25px rgba(255, 122, 26, 0.7);
+      --text: #f5f5f5;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --card-radius: 18px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scrollbar-width: thin;
-      scrollbar-color: var(--accent) #0b0f14;
-    }
-
-    *::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    *::-webkit-scrollbar-track {
-      background: #0b0f14;
-    }
-
-    *::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 10px;
-      border: 2px solid #0b0f14;
-    }
-
-    *::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-alt);
-    }
-
-    :root {
-      --bg: #050608;
-      --bg-alt: #0b0f14;
-      --card: #12151b;
-      --accent: #ff7a18;
-      --accent-soft: rgba(255, 122, 24, 0.18);
-      --accent-strong: rgba(255, 122, 24, 0.7);
-      --accent-alt: #ff9a3c;
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --border: #1f2933;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.7);
-      --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.55);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111827 0, #050608 45%, #000 100%);
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      padding: 32px;
     }
 
-    .glow-orbit {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .glow-orbit::before,
-    .glow-orbit::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(60px);
-      opacity: 0.35;
-      mix-blend-mode: screen;
-    }
-
-    .glow-orbit::before {
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, var(--accent), transparent 70%);
-      top: -80px;
-      left: -60px;
-    }
-
-    .glow-orbit::after {
-      width: 380px;
-      height: 380px;
-      background: radial-gradient(circle, var(--accent-alt), transparent 70%);
-      bottom: -60px;
-      right: -40px;
-    }
-
-    header {
-      padding: 22px 32px 10px;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(15, 23, 42, 0.95),
-        rgba(15, 23, 42, 0.7)
-      );
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .header-inner {
+    .dashboard-shell {
+      position: relative;
+      width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
+      min-height: 720px;
+      background: radial-gradient(circle at top left, #111827 0, #020617 40%, #000 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    /* orbit glow */
+    .orbit-glow {
+      position: absolute;
+      inset: -120px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 122, 26, 0.35) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(56, 189, 248, 0.25) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(59, 130, 246, 0.25) 0, transparent 55%);
+      opacity: 0.9;
+      mix-blend-mode: screen;
+      filter: blur(12px);
+    }
+
+    .dashboard-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      height: 100%;
+    }
+
+    /* sidebar */
+    .sidebar {
+      border-right: 1px solid rgba(31, 41, 55, 0.9);
+      background: linear-gradient(
+        180deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.98)
+      );
+      padding: 22px 18px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 18px;
     }
 
-    .brand {
+    .brand-row {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .brand-logo {
-      width: 42px;
-      height: 42px;
+    .brand-orbit {
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      background: conic-gradient(
-        from 180deg,
-        var(--accent),
-        var(--accent-alt),
-        #ffd089,
-        var(--accent)
-      );
-      padding: 2px;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4),
-        0 14px 32px rgba(0, 0, 0, 0.9);
+      background:
+        radial-gradient(circle at 30% 0%, #f97316 0, transparent 55%),
+        radial-gradient(circle at 70% 100%, #fb923c 0, transparent 55%);
+      box-shadow: var(--accent-glow);
+      position: relative;
     }
 
-    .brand-logo-inner {
-      width: 100%;
-      height: 100%;
+    .brand-orbit::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
       border-radius: inherit;
-      background: radial-gradient(circle at 30% 20%, #111827, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #f9fafb;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: 0.04em;
+      border: 1px solid rgba(248, 250, 252, 0.35);
+      opacity: 0.9;
     }
 
     .brand-text {
@@ -157,1035 +123,744 @@
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #f9fafb;
     }
 
-    .brand-subtitle {
-      font-size: 12px;
+    .brand-sub {
+      font-size: 11px;
       color: var(--muted);
     }
 
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+    .sidebar-section-label {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--muted);
-      background: radial-gradient(circle at top, #0b1120, #020617);
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 9px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .nav-item span {
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(255, 122, 24, 0.25);
+    .nav-item.active {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 122, 26, 0.18),
+        rgba(15, 23, 42, 0.95)
+      );
+      border-color: rgba(255, 122, 26, 0.6);
+      color: #fef3c7;
+      box-shadow: var(--accent-glow);
+      transform: translateX(1px);
     }
 
-    .primary-btn {
-      padding: 8px 16px;
+    .nav-item:hover:not(.active) {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .nav-pill {
+      font-size: 10px;
+      padding: 2px 6px;
       border-radius: 999px;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-      color: #f9fafb;
-      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out;
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(255, 122, 24, 0.75);
-      background: linear-gradient(135deg, var(--accent-alt), var(--accent));
-    }
-
-    .primary-btn-icon {
-      width: 16px;
-      height: 16px;
+      gap: 6px;
+      padding: 4px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.18);
       font-size: 11px;
     }
 
-    main {
-      flex: 1;
-      padding: 18px 32px 32px;
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
     }
 
-    .main-inner {
-      max-width: 1200px;
-      margin: 0 auto;
+    /* main content */
+    .main {
+      padding: 22px 22px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .main-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .main-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .main-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #f9fafb;
+    }
+
+    .main-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .main-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), box-shadow var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn-primary {
+      border-color: rgba(255, 122, 26, 0.8);
+      background: linear-gradient(
+        90deg,
+        rgba(255, 122, 26, 0.9),
+        rgba(251, 146, 60, 0.9)
+      );
+      color: #111827;
+      box-shadow: var(--accent-glow);
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      transform: translateY(-0.5px);
+      border-color: rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 30px rgba(255, 122, 26, 0.9);
+      filter: brightness(1.05);
+    }
+
+    .tabs-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .tab-pill {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tab-pill.active {
+      border-color: rgba(255, 122, 26, 0.9);
+      background: rgba(255, 122, 26, 0.18);
+      color: #fed7aa;
+      box-shadow: var(--accent-glow);
+      transform: translateY(-0.5px);
+    }
+
+    .content-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
-      gap: 22px;
-    }
-
-    @media (max-width: 960px) {
-      .main-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      grid-template-columns: 1.4fr 1fr;
+      gap: 14px;
+      align-items: flex-start;
     }
 
     .card {
-      background: radial-gradient(circle at top left, #111827, #020617);
-      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #0b1120 0, #020617 55%);
+      border-radius: var(--card-radius);
       border: 1px solid rgba(31, 41, 55, 0.9);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 16px;
+      padding: 14px 14px 12px 14px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: radial-gradient(circle at top right, var(--accent-soft), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
     .card-header {
-      position: relative;
-      z-index: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #f9fafb;
+      font-size: 14px;
+      font-weight: 500;
+      color: #e5e7eb;
     }
 
     .card-subtitle {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .card-tabs {
-      display: inline-flex;
-      padding: 3px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      gap: 3px;
-    }
-
-    .tab-btn {
-      border-radius: 999px;
-      border: none;
-      outline: none;
-      padding: 5px 10px;
       font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      background: transparent;
       color: var(--muted);
-      transition: background 0.15s ease-out, color 0.15s ease-out,
-        transform 0.15s ease-out;
     }
 
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-      color: #f9fafb;
-      transform: translateY(-0.5px);
+    .card-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--muted);
     }
 
     .card-body {
-      position: relative;
-      z-index: 1;
-      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .section {
-      display: none;
-      animation: fadeIn 0.25s ease-out;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(4px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 14px;
-    }
-
-    @media (max-width: 720px) {
-      .grid-2 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .field-group {
-      margin-bottom: 12px;
+    .field-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
     }
 
     .field-label {
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       color: var(--muted);
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
     }
 
-    .field-hint {
-      font-size: 10px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .input,
-    .select {
+    select,
+    input[type="text"],
+    input[type="number"] {
       width: 100%;
-      padding: 8px 10px;
-      border-radius: var(--radius-md);
+      border-radius: 10px;
       border: 1px solid rgba(31, 41, 55, 0.9);
-      background: #050814;
-      color: var(--text);
-      font-size: 13px;
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 6px 9px;
       outline: none;
-      transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out, transform 0.15s ease-out;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast);
     }
 
-    .input::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
-
-    .input:focus,
-    .select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(255, 122, 24, 0.7), 0 10px 25px rgba(0, 0, 0, 0.9);
-      background: #050814;
-      transform: translateY(-0.5px);
+    select:focus,
+    input:focus {
+      border-color: rgba(255, 122, 26, 0.9);
+      box-shadow: var(--accent-glow);
+      background: rgba(15, 23, 42, 0.98);
     }
 
     .toggle-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .toggle-label {
+      font-size: 12px;
+      color: var(--muted);
     }
 
     .toggle {
-      width: 40px;
-      height: 22px;
+      width: 34px;
+      height: 18px;
       border-radius: 999px;
       background: rgba(31, 41, 55, 0.9);
       border: 1px solid rgba(55, 65, 81, 0.9);
       position: relative;
       cursor: pointer;
-      transition: background 0.15s ease-out, border-color 0.15s ease-out;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
     }
 
     .toggle-knob {
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      background: #f9fafb;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      transition: transform 0.15s ease-out, background 0.15s ease-out;
-    }
-
-    .toggle.active {
-      background: var(--accent-strong);
-      border-color: var(--accent);
-    }
-
-    .toggle.active .toggle-knob {
-      transform: translateX(16px);
-      background: #fff7ed;
-    }
-
-    .btn-row {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .btn {
-      padding: 7px 14px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: #050814;
-      color: var(--text);
-      font-size: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s ease-out, border-color 0.15s ease-out,
-        transform 0.15s ease-out, box-shadow 0.15s ease-out;
-    }
-
-    .btn:hover {
-      background: rgba(31, 41, 55, 0.9);
-      border-color: rgba(75, 85, 99, 0.9);
-      transform: translateY(-0.5px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .btn-primary {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-      color: #f9fafb;
-      box-shadow: 0 12px 30px rgba(255, 122, 24, 0.7);
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--accent-alt), var(--accent));
-    }
-
-    .btn-icon {
       width: 14px;
       height: 14px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
+      background: #9ca3af;
+      transition: transform var(--transition-fast), background var(--transition-fast),
+        box-shadow var(--transition-fast);
     }
 
-    .log-list {
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 4px;
-      margin-top: 8px;
+    .toggle.on {
+      background: rgba(34, 197, 94, 0.18);
+      border-color: rgba(34, 197, 94, 0.9);
     }
 
-    .log-item {
-      padding: 6px 8px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      background: #050814;
-      font-size: 11px;
+    .toggle.on .toggle-knob {
+      transform: translateX(14px);
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .footer-row {
+      margin-top: auto;
+      padding-top: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .log-time {
-      font-size: 10px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .log-text {
-      font-size: 11px;
-      color: var(--text);
-    }
-
-    .badge {
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .badge-info {
-      border-color: rgba(59, 130, 246, 0.7);
-      color: rgba(59, 130, 246, 0.9);
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 8px;
-      margin-bottom: 10px;
-    }
-
-    @media (max-width: 720px) {
-      .stat-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    .stat-card {
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      background: #050814;
-      padding: 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .stat-label {
       font-size: 11px;
       color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
     }
 
-    .stat-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: #f9fafb;
-    }
-
-    .stat-sub {
-      font-size: 10px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    footer {
-      padding: 10px 32px 18px;
-      border-top: 1px solid rgba(31, 41, 55, 0.7);
-      background: #020617;
+    .log-box {
       font-size: 11px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .footer-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.7);
-    }
-
-    #saveBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
-      color: white;
-      border: none;
+      line-height: 1.4;
+      max-height: 120px;
+      overflow-y: auto;
       border-radius: 10px;
-      font-size: 15px;
-      cursor: pointer;
-      z-index: 9999;
-      display: none;
-      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.8);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 6px 8px;
+    }
+
+    .log-line {
+      margin-bottom: 2px;
+    }
+
+    .log-line span {
+      color: #9ca3af;
     }
   </style>
 </head>
-
 <body>
-  <div class="glow-orbit"></div>
+  <div class="dashboard-shell">
+    <div class="orbit-glow"></div>
+    <div class="dashboard-inner">
+      <aside class="sidebar">
+        <div class="brand-row">
+          <div class="brand-orbit"></div>
+          <div class="brand-text">
+            <div class="brand-title">Origin SMP</div>
+            <div class="brand-sub">Admin Control Panel</div>
+          </div>
+        </div>
 
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-logo">
-          <div class="brand-logo-inner">O</div>
+        <div class="sidebar-section-label">Navigation</div>
+        <div class="nav-list">
+          <div class="nav-item active" data-tab="anti-raid">
+            <span>Anti-Raid</span>
+            <div class="nav-pill">Live</div>
+          </div>
+          <div class="nav-item" data-tab="tickets">
+            <span>Tickets</span>
+            <div class="nav-pill">Config</div>
+          </div>
+          <div class="nav-item" data-tab="staff">
+            <span>Staff & Roles</span>
+            <div class="nav-pill">Access</div>
+          </div>
+          <div class="nav-item" data-tab="status">
+            <span>Bot Status</span>
+            <div class="nav-pill">Health</div>
+          </div>
         </div>
-        <div class="brand-text">
-          <div class="brand-title">Origin Admin</div>
-          <div class="brand-subtitle">Orange control panel for your Discord server</div>
+
+        <div class="sidebar-footer">
+          <div>Origin Admin Dashboard · v1.0</div>
+          <div class="status-pill">
+            <div class="status-dot"></div>
+            <span id="bot-status-text">Bot status: Unknown</span>
+          </div>
         </div>
-      </div>
-      <div class="header-actions">
-        <div class="pill">
-          <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Loading...</span>
+      </aside>
+
+      <main class="main">
+        <div class="main-header">
+          <div class="main-title-block">
+            <div class="main-title">Control Center</div>
+            <div class="main-subtitle">
+              Manage anti-raid, tickets, staff access and live bot status.
+            </div>
+            <div class="tabs-row">
+              <button class="tab-pill active" data-tab="anti-raid">Anti-Raid</button>
+              <button class="tab-pill" data-tab="tickets">Tickets</button>
+              <button class="tab-pill" data-tab="staff">Staff</button>
+              <button class="tab-pill" data-tab="status">Status</button>
+            </div>
+          </div>
+          <div class="main-actions">
+            <button class="btn" id="refresh-data-btn">Refresh Data</button>
+            <button class="btn-primary" id="save-all-btn">Save All</button>
+          </div>
         </div>
-        <button class="primary-btn" id="refreshAllBtn">
-          <span class="primary-btn-icon">⟳</span>
-          <span>Refresh Data</span>
-        </button>
+
+        <div class="content-grid">
+          <!-- PART 2 will start here: cards, dropdowns, inputs, etc. -->
+        </div>
+
+        <div class="footer-row">
+          <div>Activity Log</div>
+          <div id="last-updated-text">Last updated: never</div>
+        </div>
+        <div class="log-box" id="log-box"></div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+<!-- === PART 2: All cards, dropdowns, inputs, toggles === -->
+
+<!-- ANTI-RAID CARD -->
+<div class="card" data-tab-content="anti-raid">
+  <div class="card-header">
+    <div class="card-title-block">
+      <div class="card-title">Anti-Raid System</div>
+      <div class="card-subtitle">Configure raid protection</div>
+    </div>
+    <div class="card-tag">Security</div>
+  </div>
+
+  <div class="card-body">
+    <div class="field-row">
+      <div class="field-label">Raid Log Channel</div>
+      <select id="antiRaidLogChannel"></select>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Punishment Role</div>
+      <select id="antiRaidPunishRole"></select>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-label">Enable Anti-Raid</div>
+      <div class="toggle" id="antiRaidToggle">
+        <div class="toggle-knob"></div>
       </div>
     </div>
-  </header>
 
-  <main>
-    <div class="main-inner">
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Server Controls</div>
-            <div class="card-subtitle">Configure anti‑raid, tickets, and staff points</div>
-          </div>
+    <button class="btn-primary" id="saveAntiRaidBtn">Save Anti-Raid</button>
+  </div>
+</div>
 
-          <div class="card-tabs">
-            <button class="tab-btn active" data-section="antiRaidSection">Anti‑Raid</button>
-            <button class="tab-btn" data-section="ticketsSection">Tickets</button>
-            <button class="tab-btn" data-section="staffSection">Staff Points</button>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <!-- Anti-Raid -->
-          <div class="section active" id="antiRaidSection">
-            <div class="grid-2">
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Auto‑Kick Bots</span>
-                  </div>
-                  <div class="toggle-row">
-                    <div class="field-hint">Automatically kick bots added by non‑trusted users.</div>
-                    <div class="toggle" id="autoKickBotsToggle">
-                      <div class="toggle-knob"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Log Unauthorized Bots</span>
-                  </div>
-                  <div class="toggle-row">
-                    <div class="field-hint">Send logs when unknown bots join the server.</div>
-                    <div class="toggle" id="logUnauthorizedBotsToggle">
-                      <div class="toggle-knob"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Allowed Bot Adders</span>
-                  </div>
-                  <div class="field-hint">Select members who are allowed to add bots.</div>
-
-                  <select id="allowedBotAddersDropdown" class="select" multiple size="5">
-                    <option disabled>Loading members...</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button class="btn" id="resetAntiRaidBtn">
-                <span class="btn-icon">⟲</span>
-                <span>Reset</span>
-              </button>
-
-              <button class="btn btn-primary" id="saveAntiRaidBtn">
-                <span class="btn-icon">✓</span>
-                <span>Save Anti‑Raid</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Tickets -->
-          <div class="section" id="ticketsSection">
-            <div class="grid-2">
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Panel Name</span>
-                  </div>
-                  <input id="ticketPanelNameInput" class="input" type="text" placeholder="e.g. Support Tickets" />
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label"><span>Description</span></div>
-                  <textarea id="ticketDescriptionInput" class="input" rows="3" placeholder="Explain what this ticket panel is for..."></textarea>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label"><span>Max Tickets Per User</span></div>
-                  <input id="ticketMaxPerUserInput" class="input" type="number" min="1" max="10" value="3" />
-                </div>
-              </div>
-
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Ticket Category</span>
-                  </div>
-                  <select id="ticketCategoryDropdown" class="select">
-                    <option>Loading categories...</option>
-                  </select>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label"><span>Panel Channel</span></div>
-                  <select id="ticketPanelChannelDropdown" class="select">
-                    <option>Loading channels...</option>
-                  </select>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Ping Role</span>
-                  </div>
-                  <select id="ticketPingRoleDropdown" class="select">
-                    <option>Loading roles...</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button class="btn" id="resetTicketsBtn">
-                <span class="btn-icon">⟲</span>
-                <span>Reset</span>
-              </button>
-
-              <button class="btn btn-primary" id="deployTicketsBtn">
-                <span class="btn-icon">⚡</span>
-                <span>Deploy Ticket Panel</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Staff Points -->
-          <div class="section" id="staffSection">
-            <div class="stat-grid">
-              <div class="stat-card">
-                <div class="stat-label">Required Points</div>
-                <div class="stat-value" id="requiredPointsStat">10</div>
-                <div class="stat-sub">Points needed for staff role</div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-label">Tracked Members</div>
-                <div class="stat-value" id="trackedMembersStat">0</div>
-                <div class="stat-sub">Members with staff points</div>
-              </div>
-
-              <div class="stat-card">
-                <div class="stat-label">Staff Role</div>
-                <div class="stat-value" id="staffRoleStat">Not set</div>
-                <div class="stat-sub">Role assigned when threshold is met</div>
-              </div>
-            </div>
-
-            <div class="grid-2">
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Staff Role</span>
-                  </div>
-                  <select id="staffRoleDropdown" class="select">
-                    <option>Loading roles...</option>
-                  </select>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label"><span>Required Points</span></div>
-                  <input id="requiredPointsInput" class="input" type="number" min="1" max="999" value="10" />
-                </div>
-              </div>
-
-              <div>
-                <div class="field-group">
-                  <div class="field-label">
-                    <span>Member</span>
-                  </div>
-                  <select id="staffMemberDropdown" class="select">
-                    <option>Loading members...</option>
-                  </select>
-                </div>
-
-                <div class="field-group">
-                  <div class="field-label"><span>Current Points</span></div>
-                  <input id="staffMemberPointsInput" class="input" type="number" min="0" max="999" value="0" />
-                </div>
-              </div>
-            </div>
-
-            <div class="btn-row">
-              <button class="btn" id="resetStaffBtn">
-                <span class="btn-icon">⟲</span>
-                <span>Reset</span>
-              </button>
-
-              <button class="btn btn-primary" id="saveStaffBtn">
-                <span class="btn-icon">✓</span>
-                <span>Save Staff Settings</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right side card: logs -->
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Activity & Logs</div>
-            <div class="card-subtitle">Recent actions and bot events</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="log-list" id="logList">
-            <div class="log-item">
-              <div>
-                <div class="log-text">Dashboard loaded</div>
-                <div class="log-time">Just now</div>
-              </div>
-              <span class="badge badge-info">Info</span>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- TICKETS CARD -->
+<div class="card" data-tab-content="tickets" style="display:none;">
+  <div class="card-header">
+    <div class="card-title-block">
+      <div class="card-title">Ticket System</div>
+      <div class="card-subtitle">Configure ticket categories</div>
     </div>
-  </main>
+    <div class="card-tag">Support</div>
+  </div>
 
-  <footer>
-    <div class="footer-inner">
-      <div>Origin Admin Dashboard</div>
-      <div class="footer-right">
-        <div class="dot"></div>
-        <div id="footerStatusText">Waiting for bot status...</div>
-      </div>
+  <div class="card-body">
+    <div class="field-row">
+      <div class="field-label">Ticket Category</div>
+      <select id="ticketCategory"></select>
     </div>
-  </footer>
 
-  <button id="saveBtn">Save Changes</button>
+    <div class="field-row">
+      <div class="field-label">Ticket Log Channel</div>
+      <select id="ticketLogChannel"></select>
+    </div>
 
-  <script>
-    async function api(path, options = {}) {
-      try {
-        const res = await fetch(path, options);
-        return await res.json();
-      } catch (e) {
-        addLog(`API error on ${path}: ${e.message}`, "Error");
-        return { ok: false, error: e.message };
-      }
-    }
+    <button class="btn-primary" id="deployTicketsBtn">Deploy Tickets</button>
+  </div>
+</div>
 
-    function clear(el) {
-      while (el.firstChild) el.removeChild(el.firstChild);
-    }
+<!-- STAFF CARD -->
+<div class="card" data-tab-content="staff" style="display:none;">
+  <div class="card-header">
+    <div class="card-title-block">
+      <div class="card-title">Staff Access</div>
+      <div class="card-subtitle">Assign staff roles</div>
+    </div>
+    <div class="card-tag">Access</div>
+  </div>
 
-    function addLog(message, type = "Info") {
-      const logList = document.getElementById("logList");
-      const item = document.createElement("div");
-      item.className = "log-item";
+  <div class="card-body">
+    <div class="field-row">
+      <div class="field-label">Staff Role</div>
+      <select id="staffRole"></select>
+    </div>
 
-      const left = document.createElement("div");
-      const text = document.createElement("div");
-      text.className = "log-text";
-      text.textContent = message;
+    <div class="field-row">
+      <div class="field-label">Admin Role</div>
+      <select id="adminRole"></select>
+    </div>
 
-      const time = document.createElement("div");
-      time.className = "log-time";
-      time.textContent = new Date().toLocaleTimeString();
+    <button class="btn-primary" id="saveStaffBtn">Save Staff</button>
+  </div>
+</div>
 
-      left.appendChild(text);
-      left.appendChild(time);
+<!-- STATUS CARD -->
+<div class="card" data-tab-content="status" style="display:none;">
+  <div class="card-header">
+    <div class="card-title-block">
+      <div class="card-title">Bot Status</div>
+      <div class="card-subtitle">Live bot health</div>
+    </div>
+    <div class="card-tag">Health</div>
+  </div>
 
-      const badge = document.createElement("span");
-      badge.className = "badge badge-info";
-      badge.textContent = type;
+  <div class="card-body">
+    <div class="field-row">
+      <div class="field-label">Bot Status</div>
+      <input type="text" id="botStatusField" readonly />
+    </div>
 
-      item.appendChild(left);
-      item.appendChild(badge);
-      logList.prepend(item);
-    }
+    <div class="field-row">
+      <div class="field-label">Guild Count</div>
+      <input type="number" id="guildCountField" readonly />
+    </div>
 
-    function markDirty() {
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.style.display = "block";
-    }
+    <div class="field-row">
+      <div class="field-label">Ping</div>
+      <input type="number" id="pingField" readonly />
+    </div>
 
-    async function loadStatus() {
-      const data = await api("/api/status");
-      const statusText = document.getElementById("statusText");
-      const statusDot = document.getElementById("statusDot");
-      const footerStatusText = document.getElementById("footerStatusText");
+    <button class="btn" id="refreshStatusBtn">Refresh Status</button>
+  </div>
+</div>
+<!-- === PART 3: FULL JAVASCRIPT (ALL API CALLS, DROPDOWNS, TABS, TOGGLES, LOGS) === -->
 
-      if (data && data.online) {
-        statusText.textContent = "Bot Online";
-        statusDot.style.background = "var(--accent)";
-        footerStatusText.textContent = "Bot connected to guild and serving data";
-      } else {
-        statusText.textContent = "Bot Offline";
-        statusDot.style.background = "#7f1d1d";
-        footerStatusText.textContent = "Bot offline – data may be stale";
-      }
-    }
+<script>
+const API_BASE = "https://origin-szxz.onrender.com";
 
-    async function loadMembers() {
-      const data = await api("/api/members");
-      const members = (data && data.members) || [];
+// LOGGING
+function log(msg) {
+  const box = document.getElementById("log-box");
+  const line = document.createElement("div");
+  line.className = "log-line";
+  line.innerHTML = `<span>[LOG]</span> ${msg}`;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+  document.getElementById("last-updated-text").innerText =
+    "Last updated: " + new Date().toLocaleTimeString();
+}
 
-      const allowed = document.getElementById("allowedBotAddersDropdown");
-      const staffMembers = document.getElementById("staffMemberDropdown");
+// TAB SWITCHING
+document.querySelectorAll(".tab-pill").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab-pill").forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
 
-      clear(allowed);
-      clear(staffMembers);
-
-      members.forEach(m => {
-        const opt1 = document.createElement("option");
-        opt1.value = m.id;
-        opt1.textContent = m.name;
-        allowed.appendChild(opt1);
-
-        const opt2 = document.createElement("option");
-        opt2.value = m.id;
-        opt2.textContent = m.name;
-        staffMembers.appendChild(opt2);
-      });
-
-      document.getElementById("trackedMembersStat").textContent = members.length.toString();
-      addLog("Loaded members from guild", "Info");
-    }
-
-    async function loadChannels() {
-      const data = await api("/api/channels");
-      const channels = (data && data.channels) || [];
-
-      const catDD = document.getElementById("ticketCategoryDropdown");
-      const chanDD = document.getElementById("ticketPanelChannelDropdown");
-
-      clear(catDD);
-      clear(chanDD);
-
-      channels.forEach(c => {
-        if (c.type === 4) {
-          const opt = document.createElement("option");
-          opt.value = c.id;
-          opt.textContent = c.name;
-          catDD.appendChild(opt);
-        }
-        if (c.type === 0) {
-          const opt = document.createElement("option");
-          opt.value = c.id;
-          opt.textContent = c.name;
-          chanDD.appendChild(opt);
-        }
-      });
-
-      addLog("Loaded channels and categories from guild", "Info");
-    }
-
-    async function loadRoles() {
-      const data = await api("/api/roles");
-      const roles = (data && data.roles) || [];
-
-      const pingDD = document.getElementById("ticketPingRoleDropdown");
-      const staffDD = document.getElementById("staffRoleDropdown");
-
-      clear(pingDD);
-      clear(staffDD);
-
-      roles.forEach(r => {
-        const opt1 = document.createElement("option");
-        opt1.value = r.id;
-        opt1.textContent = r.name;
-        pingDD.appendChild(opt1);
-
-        const opt2 = document.createElement("option");
-        opt2.value = r.id;
-        opt2.textContent = r.name;
-        staffDD.appendChild(opt2);
-      });
-
-      document.getElementById("staffRoleStat").textContent =
-        roles.length ? roles[0].name : "Not set";
-
-      addLog("Loaded roles from guild", "Info");
-    }
-
-    async function refreshAll() {
-      addLog("Refreshing guild data...", "Info");
-      await Promise.all([loadStatus(), loadMembers(), loadChannels(), loadRoles()]);
-      addLog("Guild data refreshed", "Info");
-    }
-
-    document.getElementById("refreshAllBtn").addEventListener("click", () => {
-      refreshAll();
+    const name = tab.dataset.tab;
+    document.querySelectorAll("[data-tab-content]").forEach((card) => {
+      card.style.display = card.dataset.tabContent === name ? "block" : "none";
     });
 
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        const target = btn.dataset.section;
-        document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
-        document.getElementById(target).classList.add("active");
-      });
+    document.querySelectorAll(".nav-item").forEach((nav) => {
+      nav.classList.toggle("active", nav.dataset.tab === name);
     });
 
-    document.querySelectorAll(".toggle").forEach(toggle => {
-      toggle.addEventListener("click", () => {
-        toggle.classList.toggle("active");
-        markDirty();
-      });
-    });
-
-    document.querySelectorAll(".input, .select").forEach(el => {
-      el.addEventListener("change", markDirty);
-    });
-
-    document.getElementById("saveAntiRaidBtn").addEventListener("click", async () => {
-      const autoKick = document.getElementById("autoKickBotsToggle").classList.contains("active");
-      const logUnauthorized = document.getElementById("logUnauthorizedBotsToggle").classList.contains("active");
-      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
-      const allowedIds = Array.from(allowedSelect.selectedOptions).map(o => o.value);
-
-      await api("/api/saveAntiRaid", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          autoKickBots: autoKick,
-          logUnauthorizedBots: logUnauthorized,
-          allowedBotAdders: allowedIds
-        })
-      });
-
-      addLog("Anti‑Raid settings saved", "Info");
-      document.getElementById("saveBtn").style.display = "none";
-    });
-
-    document.getElementById("resetAntiRaidBtn").addEventListener("click", () => {
-      document.getElementById("autoKickBotsToggle").classList.remove("active");
-      document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
-      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
-      Array.from(allowedSelect.options).forEach(o => (o.selected = false));
-      addLog("Anti‑Raid settings reset", "Info");
-      markDirty();
-    });
-
-    document.getElementById("deployTicketsBtn").addEventListener("click", async () => {
-      const panelName = document.getElementById("ticketPanelNameInput").value;
-      const description = document.getElementById("ticketDescriptionInput").value;
-      const maxTickets = parseInt(document.getElementById("ticketMaxPerUserInput").value || "3", 10);
-      const categoryId = document.getElementById("ticketCategoryDropdown").value;
-      const channelId = document.getElementById("ticketPanelChannelDropdown").value;
-      const roleId = document.getElementById("ticketPingRoleDropdown").value;
-
-      await api("/api/deployTickets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          panelName,
-          description,
-          maxTicketsPerUser: maxTickets,
-          categoryId,
-          channelId,
-          pingRoleId: roleId
-        })
-      });
-
-      addLog("Ticket panel deploy requested", "Info");
-      document.getElementById("saveBtn").style.display = "none";
-    });
-
-    document.getElementById("resetTicketsBtn").addEventListener("click", () => {
-      document.getElementById("ticketPanelNameInput").value = "";
-      document.getElementById("ticketDescriptionInput").value = "";
-      document.getElementById("ticketMaxPerUserInput").value = 3;
-      addLog("Ticket settings reset", "Info");
-      markDirty();
-    });
-
-    document.getElementById("saveStaffBtn").addEventListener("click", async () => {
-      const staffRoleId = document.getElementById("staffRoleDropdown").value;
-      const requiredPoints = parseInt(document.getElementById("requiredPointsInput").value || "10", 10);
-      const memberId = document.getElementById("staffMemberDropdown").value;
-      const memberPoints = parseInt(document.getElementById("staffMemberPointsInput").value || "0", 10);
-
-      await api("/api/saveStaff", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          staffRoleId,
-          requiredPoints,
-          memberId,
-          memberPoints
-        })
-      });
-
-      document.getElementById("requiredPointsStat").textContent = requiredPoints.toString();
-      addLog("Staff settings saved", "Info");
-      document.getElementById("saveBtn").style.display = "none";
-    });
-
-    document.getElementById("resetStaffBtn").addEventListener("click", () => {
-      document.getElementById("requiredPointsInput").value = 10;
-      document.getElementById("staffMemberPointsInput").value = 0;
-      addLog("Staff settings reset", "Info");
-      markDirty();
-    });
-
-    document.getElementById("saveBtn").addEventListener("click", () => {
-      addLog("Global save triggered (frontend only)", "Info");
-      document.getElementById("saveBtn").style.display = "none";
-    });
-
-    refreshAll();
-    document.addEventListener("DOMContentLoaded", () => {
-  refreshAll();
+    log("Switched to tab: " + name);
+  });
 });
 
-  </script>
+// SIDEBAR NAV MIRROR
+document.querySelectorAll(".nav-item").forEach((nav) => {
+  nav.addEventListener("click", () => {
+    const name = nav.dataset.tab;
+    document.querySelector(`[data-tab="${name}"]`).click();
+  });
+});
+
+// TOGGLES
+function setupToggle(id) {
+  const t = document.getElementById(id);
+  t.addEventListener("click", () => {
+    t.classList.toggle("on");
+    log(id + " toggled to " + (t.classList.contains("on") ? "ON" : "OFF"));
+  });
+}
+setupToggle("antiRaidToggle");
+
+// FETCH HELPERS
+async function apiGet(path) {
+  const res = await fetch(`${API_BASE}/api/${path}`);
+  return res.json();
+}
+
+async function apiPost(path, body) {
+  const res = await fetch(`${API_BASE}/api/${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return res.json();
+}
+
+// POPULATE DROPDOWNS
+async function loadChannels() {
+  const data = await apiGet("channels");
+  const selects = ["antiRaidLogChannel", "ticketCategory", "ticketLogChannel"];
+  selects.forEach((id) => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = "";
+    data.forEach((c) => {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = `${c.name} (${c.id})`;
+      sel.appendChild(opt);
+    });
+  });
+  log("Channels loaded");
+}
+
+async function loadRoles() {
+  const data = await apiGet("roles");
+  const selects = ["antiRaidPunishRole", "staffRole", "adminRole"];
+  selects.forEach((id) => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = "";
+    data.forEach((r) => {
+      const opt = document.createElement("option");
+      opt.value = r.id;
+      opt.textContent = `${r.name} (${r.id})`;
+      sel.appendChild(opt);
+    });
+  });
+  log("Roles loaded");
+}
+
+// STATUS
+async function loadStatus() {
+  const data = await apiGet("status");
+  document.getElementById("botStatusField").value = data.status;
+  document.getElementById("guildCountField").value = data.guilds;
+  document.getElementById("pingField").value = data.ping;
+
+  document.getElementById("bot-status-text").innerText =
+    "Bot status: " + data.status;
+
+  log("Status refreshed");
+}
+
+// SAVE ANTI-RAID
+document.getElementById("saveAntiRaidBtn").addEventListener("click", async () => {
+  const payload = {
+    logChannel: document.getElementById("antiRaidLogChannel").value,
+    punishRole: document.getElementById("antiRaidPunishRole").value,
+    enabled: document.getElementById("antiRaidToggle").classList.contains("on"),
+  };
+
+  await apiPost("saveAntiRaid", payload);
+  log("Anti-Raid saved");
+});
+
+// DEPLOY TICKETS
+document.getElementById("deployTicketsBtn").addEventListener("click", async () => {
+  const payload = {
+    category: document.getElementById("ticketCategory").value,
+    logChannel: document.getElementById("ticketLogChannel").value,
+  };
+
+  await apiPost("deployTickets", payload);
+  log("Tickets deployed");
+});
+
+// SAVE STAFF
+document.getElementById("saveStaffBtn").addEventListener("click", async () => {
+  const payload = {
+    staffRole: document.getElementById("staffRole").value,
+    adminRole: document.getElementById("adminRole").value,
+  };
+
+  await apiPost("saveStaff", payload);
+  log("Staff roles saved");
+});
+
+// REFRESH BUTTONS
+document.getElementById("refresh-data-btn").addEventListener("click", async () => {
+  await loadChannels();
+  await loadRoles();
+  await loadStatus();
+  log("All data refreshed");
+});
+
+document.getElementById("refreshStatusBtn").addEventListener("click", loadStatus);
+
+// INITIAL LOAD
+(async () => {
+  await loadChannels();
+  await loadRoles();
+  await loadStatus();
+  log("Dashboard initialized");
+})();
+</script>
+<!-- === PART 4: FINAL CLOSING STRUCTURE === -->
+
+      </main>
+    </div>
+  </div>
 </body>
 </html>
