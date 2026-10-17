@@ -6,30 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    /* GLOBAL SCROLLBAR THEME */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) #0b0f14;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) #0b0f14;
+    }
 
-/* Chrome, Edge, Opera */
-*::-webkit-scrollbar {
-  width: 10px;
-}
+    *::-webkit-scrollbar {
+      width: 10px;
+    }
 
-*::-webkit-scrollbar-track {
-  background: #0b0f14;
-}
+    *::-webkit-scrollbar-track {
+      background: #0b0f14;
+    }
 
-*::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
-  border: 2px solid #0b0f14;
-}
+    *::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+      border: 2px solid #0b0f14;
+    }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-alt);
-}
+    *::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-alt);
+    }
 
     :root {
       --bg: #050608;
@@ -46,12 +47,6 @@
       --radius-md: 10px;
       --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.7);
       --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.55);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
@@ -416,36 +411,6 @@
       transform: translateY(-0.5px);
     }
 
-    .select {
-      appearance: none;
-      background-image: linear-gradient(135deg, rgba(255, 122, 24, 0.2), transparent 60%);
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 18px 18px;
-    }
-
-    .select-wrapper {
-      position: relative;
-    }
-
-    .select-arrow {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: rgba(148, 163, 184, 0.9);
-      pointer-events: none;
-      background: #050814;
-    }
-
     .toggle-row {
       display: flex;
       align-items: center;
@@ -691,7 +656,7 @@
       <div class="header-actions">
         <div class="pill">
           <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Bot Online</span>
+          <span id="statusText">Loading...</span>
         </div>
         <button class="primary-btn" id="refreshAllBtn">
           <span class="primary-btn-icon">⟳</span>
@@ -754,12 +719,9 @@
                   </div>
                   <div class="field-hint">Select members who are allowed to add bots.</div>
 
-                  <div class="select-wrapper">
-                    <select id="allowedBotAddersDropdown" class="select" multiple size="5">
-                      <option disabled>Loading members...</option>
-                    </select>
-                    <div class="select-arrow">⇅</div>
-                  </div>
+                  <select id="allowedBotAddersDropdown" class="select" multiple size="5">
+                    <option disabled>Loading members...</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -804,34 +766,25 @@
                   <div class="field-label">
                     <span>Ticket Category</span>
                   </div>
-                  <div class="select-wrapper">
-                    <select id="ticketCategoryDropdown" class="select">
-                      <option>Loading categories...</option>
-                    </select>
-                    <div class="select-arrow">⌄</div>
-                  </div>
+                  <select id="ticketCategoryDropdown" class="select">
+                    <option>Loading categories...</option>
+                  </select>
                 </div>
 
                 <div class="field-group">
                   <div class="field-label"><span>Panel Channel</span></div>
-                  <div class="select-wrapper">
-                    <select id="ticketPanelChannelDropdown" class="select">
-                      <option>Loading channels...</option>
-                    </select>
-                    <div class="select-arrow">⌄</div>
-                  </div>
+                  <select id="ticketPanelChannelDropdown" class="select">
+                    <option>Loading channels...</option>
+                  </select>
                 </div>
 
                 <div class="field-group">
                   <div class="field-label">
                     <span>Ping Role</span>
                   </div>
-                  <div class="select-wrapper">
-                    <select id="ticketPingRoleDropdown" class="select">
-                      <option>Loading roles...</option>
-                    </select>
-                    <div class="select-arrow">⌄</div>
-                  </div>
+                  <select id="ticketPingRoleDropdown" class="select">
+                    <option>Loading roles...</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -877,12 +830,9 @@
                   <div class="field-label">
                     <span>Staff Role</span>
                   </div>
-                  <div class="select-wrapper">
-                    <select id="staffRoleDropdown" class="select">
-                      <option>Loading roles...</option>
-                    </select>
-                    <div class="select-arrow">⌄</div>
-                  </div>
+                  <select id="staffRoleDropdown" class="select">
+                    <option>Loading roles...</option>
+                  </select>
                 </div>
 
                 <div class="field-group">
@@ -896,12 +846,9 @@
                   <div class="field-label">
                     <span>Member</span>
                   </div>
-                  <div class="select-wrapper">
-                    <select id="staffMemberDropdown" class="select">
-                      <option>Loading members...</option>
-                    </select>
-                    <div class="select-arrow">⌄</div>
-                  </div>
+                  <select id="staffMemberDropdown" class="select">
+                    <option>Loading members...</option>
+                  </select>
                 </div>
 
                 <div class="field-group">
@@ -954,7 +901,7 @@
       <div>Origin Admin Dashboard</div>
       <div class="footer-right">
         <div class="dot"></div>
-        <div id="footerStatusText">Guild data loaded from bot API</div>
+        <div id="footerStatusText">Waiting for bot status...</div>
       </div>
     </div>
   </footer>
@@ -962,6 +909,20 @@
   <button id="saveBtn">Save Changes</button>
 
   <script>
+    async function api(path, options = {}) {
+      try {
+        const res = await fetch(path, options);
+        return await res.json();
+      } catch (e) {
+        addLog(`API error on ${path}: ${e.message}`, "Error");
+        return { ok: false, error: e.message };
+      }
+    }
+
+    function clear(el) {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
+
     function addLog(message, type = "Info") {
       const logList = document.getElementById("logList");
       const item = document.createElement("div");
@@ -993,148 +954,103 @@
       saveBtn.style.display = "block";
     }
 
-    document.querySelectorAll(".input, .select, .toggle").forEach(el => {
-      el.addEventListener("change", markDirty);
-      el.addEventListener("click", markDirty);
-    });
-
-    document.querySelectorAll(".toggle").forEach(toggle => {
-      toggle.addEventListener("click", () => {
-        toggle.classList.toggle("active");
-      });
-    });
-
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        const target = btn.getAttribute("data-section");
-        document.querySelectorAll(".section").forEach(sec => {
-          sec.classList.remove("active");
-        });
-        document.getElementById(target).classList.add("active");
-      });
-    });
-
     async function loadStatus() {
-      try {
-        const res = await fetch("/api/status");
-        const data = await res.json();
-        const online = data.online;
-        const statusText = document.getElementById("statusText");
-        const statusDot = document.getElementById("statusDot");
-        const footerStatusText = document.getElementById("footerStatusText");
+      const data = await api("/api/status");
+      const statusText = document.getElementById("statusText");
+      const statusDot = document.getElementById("statusDot");
+      const footerStatusText = document.getElementById("footerStatusText");
 
-        if (online) {
-          statusText.textContent = "Bot Online";
-          statusDot.style.background = "var(--accent)";
-          footerStatusText.textContent = "Bot connected to guild and serving data";
-        } else {
-          statusText.textContent = "Bot Offline";
-          statusDot.style.background = "#7f1d1d";
-          footerStatusText.textContent = "Bot offline – data may be stale";
-        }
-      } catch (e) {
-        addLog("Failed to load bot status", "Error");
+      if (data && data.online) {
+        statusText.textContent = "Bot Online";
+        statusDot.style.background = "var(--accent)";
+        footerStatusText.textContent = "Bot connected to guild and serving data";
+      } else {
+        statusText.textContent = "Bot Offline";
+        statusDot.style.background = "#7f1d1d";
+        footerStatusText.textContent = "Bot offline – data may be stale";
       }
     }
 
     async function loadMembers() {
-      try {
-        const res = await fetch("/api/members");
-        const data = await res.json();
-        const members = data.members || [];
+      const data = await api("/api/members");
+      const members = (data && data.members) || [];
 
-        const allowedBotAddersDropdown = document.getElementById("allowedBotAddersDropdown");
-        const staffMemberDropdown = document.getElementById("staffMemberDropdown");
+      const allowed = document.getElementById("allowedBotAddersDropdown");
+      const staffMembers = document.getElementById("staffMemberDropdown");
 
-        allowedBotAddersDropdown.innerHTML = "";
-        staffMemberDropdown.innerHTML = "";
+      clear(allowed);
+      clear(staffMembers);
 
-        members.forEach(m => {
-          const opt1 = document.createElement("option");
-          opt1.value = m.id;
-          opt1.textContent = m.name;
-          allowedBotAddersDropdown.appendChild(opt1);
+      members.forEach(m => {
+        const opt1 = document.createElement("option");
+        opt1.value = m.id;
+        opt1.textContent = m.name;
+        allowed.appendChild(opt1);
 
-          const opt2 = document.createElement("option");
-          opt2.value = m.id;
-          opt2.textContent = m.name;
-          staffMemberDropdown.appendChild(opt2);
-        });
+        const opt2 = document.createElement("option");
+        opt2.value = m.id;
+        opt2.textContent = m.name;
+        staffMembers.appendChild(opt2);
+      });
 
-        document.getElementById("trackedMembersStat").textContent = members.length.toString();
-        addLog("Loaded members from guild", "Info");
-      } catch (e) {
-        addLog("Failed to load members", "Error");
-      }
+      document.getElementById("trackedMembersStat").textContent = members.length.toString();
+      addLog("Loaded members from guild", "Info");
     }
 
     async function loadChannels() {
-      try {
-        const res = await fetch("/api/channels");
-        const data = await res.json();
-        const channels = data.channels || [];
+      const data = await api("/api/channels");
+      const channels = (data && data.channels) || [];
 
-        const ticketCategoryDropdown = document.getElementById("ticketCategoryDropdown");
-        const ticketPanelChannelDropdown = document.getElementById("ticketPanelChannelDropdown");
+      const catDD = document.getElementById("ticketCategoryDropdown");
+      const chanDD = document.getElementById("ticketPanelChannelDropdown");
 
-        ticketCategoryDropdown.innerHTML = "";
-        ticketPanelChannelDropdown.innerHTML = "";
+      clear(catDD);
+      clear(chanDD);
 
-        channels.forEach(c => {
-          if (c.type === 4) {
-            const optCat = document.createElement("option");
-            optCat.value = c.id;
-            optCat.textContent = c.name;
-            ticketCategoryDropdown.appendChild(optCat);
-          }
-          if (c.type === 0) {
-            const optChan = document.createElement("option");
-            optChan.value = c.id;
-            optChan.textContent = c.name;
-            ticketPanelChannelDropdown.appendChild(optChan);
-          }
-        });
+      channels.forEach(c => {
+        if (c.type === 4) {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.name;
+          catDD.appendChild(opt);
+        }
+        if (c.type === 0) {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.name;
+          chanDD.appendChild(opt);
+        }
+      });
 
-        addLog("Loaded channels and categories from guild", "Info");
-      } catch (e) {
-        addLog("Failed to load channels", "Error");
-      }
+      addLog("Loaded channels and categories from guild", "Info");
     }
 
     async function loadRoles() {
-      try {
-        const res = await fetch("/api/roles");
-        const data = await res.json();
-        const roles = data.roles || [];
+      const data = await api("/api/roles");
+      const roles = (data && data.roles) || [];
 
-        const ticketPingRoleDropdown = document.getElementById("ticketPingRoleDropdown");
-        const staffRoleDropdown = document.getElementById("staffRoleDropdown");
+      const pingDD = document.getElementById("ticketPingRoleDropdown");
+      const staffDD = document.getElementById("staffRoleDropdown");
 
-        ticketPingRoleDropdown.innerHTML = "";
-        staffRoleDropdown.innerHTML = "";
+      clear(pingDD);
+      clear(staffDD);
 
-        roles.forEach(r => {
-          const optPing = document.createElement("option");
-          optPing.value = r.id;
-          optPing.textContent = r.name;
-          ticketPingRoleDropdown.appendChild(optPing);
+      roles.forEach(r => {
+        const opt1 = document.createElement("option");
+        opt1.value = r.id;
+        opt1.textContent = r.name;
+        pingDD.appendChild(opt1);
 
-          const optStaff = document.createElement("option");
-          optStaff.value = r.id;
-          optStaff.textContent = r.name;
-          staffRoleDropdown.appendChild(optStaff);
-        });
+        const opt2 = document.createElement("option");
+        opt2.value = r.id;
+        opt2.textContent = r.name;
+        staffDD.appendChild(opt2);
+      });
 
-        document.getElementById("staffRoleStat").textContent =
-          roles.length > 0 ? roles[0].name : "Not set";
+      document.getElementById("staffRoleStat").textContent =
+        roles.length ? roles[0].name : "Not set";
 
-        addLog("Loaded roles from guild", "Info");
-      } catch (e) {
-        addLog("Failed to load roles", "Error");
-      }
+      addLog("Loaded roles from guild", "Info");
     }
 
     async function refreshAll() {
@@ -1147,20 +1063,79 @@
       refreshAll();
     });
 
-    document.getElementById("saveAntiRaidBtn").addEventListener("click", () => {
-      addLog("Anti‑Raid settings saved (frontend stub)", "Info");
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const target = btn.dataset.section;
+        document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    document.querySelectorAll(".toggle").forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("active");
+        markDirty();
+      });
+    });
+
+    document.querySelectorAll(".input, .select").forEach(el => {
+      el.addEventListener("change", markDirty);
+    });
+
+    document.getElementById("saveAntiRaidBtn").addEventListener("click", async () => {
+      const autoKick = document.getElementById("autoKickBotsToggle").classList.contains("active");
+      const logUnauthorized = document.getElementById("logUnauthorizedBotsToggle").classList.contains("active");
+      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
+      const allowedIds = Array.from(allowedSelect.selectedOptions).map(o => o.value);
+
+      await api("/api/saveAntiRaid", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          autoKickBots: autoKick,
+          logUnauthorizedBots: logUnauthorized,
+          allowedBotAdders: allowedIds
+        })
+      });
+
+      addLog("Anti‑Raid settings saved", "Info");
       document.getElementById("saveBtn").style.display = "none";
     });
 
     document.getElementById("resetAntiRaidBtn").addEventListener("click", () => {
       document.getElementById("autoKickBotsToggle").classList.remove("active");
       document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
+      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
+      Array.from(allowedSelect.options).forEach(o => (o.selected = false));
       addLog("Anti‑Raid settings reset", "Info");
       markDirty();
     });
 
-    document.getElementById("deployTicketsBtn").addEventListener("click", () => {
-      addLog("Ticket panel deploy requested (frontend stub)", "Info");
+    document.getElementById("deployTicketsBtn").addEventListener("click", async () => {
+      const panelName = document.getElementById("ticketPanelNameInput").value;
+      const description = document.getElementById("ticketDescriptionInput").value;
+      const maxTickets = parseInt(document.getElementById("ticketMaxPerUserInput").value || "3", 10);
+      const categoryId = document.getElementById("ticketCategoryDropdown").value;
+      const channelId = document.getElementById("ticketPanelChannelDropdown").value;
+      const roleId = document.getElementById("ticketPingRoleDropdown").value;
+
+      await api("/api/deployTickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          panelName,
+          description,
+          maxTicketsPerUser: maxTickets,
+          categoryId,
+          channelId,
+          pingRoleId: roleId
+        })
+      });
+
+      addLog("Ticket panel deploy requested", "Info");
       document.getElementById("saveBtn").style.display = "none";
     });
 
@@ -1172,10 +1147,25 @@
       markDirty();
     });
 
-    document.getElementById("saveStaffBtn").addEventListener("click", () => {
-      const requiredPoints = document.getElementById("requiredPointsInput").value;
-      document.getElementById("requiredPointsStat").textContent = requiredPoints;
-      addLog("Staff settings saved (frontend stub)", "Info");
+    document.getElementById("saveStaffBtn").addEventListener("click", async () => {
+      const staffRoleId = document.getElementById("staffRoleDropdown").value;
+      const requiredPoints = parseInt(document.getElementById("requiredPointsInput").value || "10", 10);
+      const memberId = document.getElementById("staffMemberDropdown").value;
+      const memberPoints = parseInt(document.getElementById("staffMemberPointsInput").value || "0", 10);
+
+      await api("/api/saveStaff", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          staffRoleId,
+          requiredPoints,
+          memberId,
+          memberPoints
+        })
+      });
+
+      document.getElementById("requiredPointsStat").textContent = requiredPoints.toString();
+      addLog("Staff settings saved", "Info");
       document.getElementById("saveBtn").style.display = "none";
     });
 
@@ -1187,175 +1177,11 @@
     });
 
     document.getElementById("saveBtn").addEventListener("click", () => {
-      addLog("Global save triggered (frontend stub)", "Info");
+      addLog("Global save triggered (frontend only)", "Info");
       document.getElementById("saveBtn").style.display = "none";
     });
 
     refreshAll();
-    <script>
-async function api(path) {
-  const res = await fetch(path);
-  return res.json();
-}
-
-function clear(el) {
-  while (el.firstChild) el.removeChild(el.firstChild);
-}
-
-function addLog(msg, type = "Info") {
-  const logList = document.getElementById("logList");
-  const item = document.createElement("div");
-  item.className = "log-item";
-
-  const left = document.createElement("div");
-  const text = document.createElement("div");
-  text.className = "log-text";
-  text.textContent = msg;
-
-  const time = document.createElement("div");
-  time.className = "log-time";
-  time.textContent = new Date().toLocaleTimeString();
-
-  left.appendChild(text);
-  left.appendChild(time);
-
-  const badge = document.createElement("span");
-  badge.className = "badge badge-info";
-  badge.textContent = type;
-
-  item.appendChild(left);
-  item.appendChild(badge);
-  logList.prepend(item);
-}
-
-async function loadStatus() {
-  const data = await api("/api/status");
-  const dot = document.getElementById("statusDot");
-  const txt = document.getElementById("statusText");
-
-  if (data.online) {
-    dot.style.background = "var(--accent)";
-    txt.textContent = "Bot Online";
-  } else {
-    dot.style.background = "#7f1d1d";
-    txt.textContent = "Bot Offline";
-  }
-}
-
-async function loadMembers() {
-  const data = await api("/api/members");
-  const members = data.members || [];
-
-  const allowed = document.getElementById("allowedBotAddersDropdown");
-  const staffMembers = document.getElementById("staffMemberDropdown");
-
-  clear(allowed);
-  clear(staffMembers);
-
-  members.forEach(m => {
-    const opt1 = document.createElement("option");
-    opt1.value = m.id;
-    opt1.textContent = m.name;
-    allowed.appendChild(opt1);
-
-    const opt2 = document.createElement("option");
-    opt2.value = m.id;
-    opt2.textContent = m.name;
-    staffMembers.appendChild(opt2);
-  });
-
-  document.getElementById("trackedMembersStat").textContent = members.length;
-  addLog("Loaded guild members");
-}
-
-async function loadChannels() {
-  const data = await api("/api/channels");
-  const channels = data.channels || [];
-
-  const catDD = document.getElementById("ticketCategoryDropdown");
-  const chanDD = document.getElementById("ticketPanelChannelDropdown");
-
-  clear(catDD);
-  clear(chanDD);
-
-  channels.forEach(c => {
-    if (c.type === 4) {
-      const opt = document.createElement("option");
-      opt.value = c.id;
-      opt.textContent = c.name;
-      catDD.appendChild(opt);
-    }
-    if (c.type === 0) {
-      const opt = document.createElement("option");
-      opt.value = c.id;
-      opt.textContent = c.name;
-      chanDD.appendChild(opt);
-    }
-  });
-
-  addLog("Loaded guild channels & categories");
-}
-
-async function loadRoles() {
-  const data = await api("/api/roles");
-  const roles = data.roles || [];
-
-  const pingDD = document.getElementById("ticketPingRoleDropdown");
-  const staffDD = document.getElementById("staffRoleDropdown");
-
-  clear(pingDD);
-  clear(staffDD);
-
-  roles.forEach(r => {
-    const opt1 = document.createElement("option");
-    opt1.value = r.id;
-    opt1.textContent = r.name;
-    pingDD.appendChild(opt1);
-
-    const opt2 = document.createElement("option");
-    opt2.value = r.id;
-    opt2.textContent = r.name;
-    staffDD.appendChild(opt2);
-  });
-
-  document.getElementById("staffRoleStat").textContent =
-    roles.length ? roles[0].name : "Not set";
-
-  addLog("Loaded guild roles");
-}
-
-async function refreshAll() {
-  addLog("Refreshing guild data...");
-  await loadStatus();
-  await loadMembers();
-  await loadChannels();
-  await loadRoles();
-  addLog("Guild data refreshed");
-}
-
-document.getElementById("refreshAllBtn").addEventListener("click", refreshAll);
-
-// Tab switching
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const target = btn.dataset.section;
-    document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
-    document.getElementById(target).classList.add("active");
-  });
-});
-
-// Toggles
-document.querySelectorAll(".toggle").forEach(t => {
-  t.addEventListener("click", () => t.classList.toggle("active"));
-});
-
-// Initial load
-refreshAll();
-</script>
-
   </script>
 </body>
 </html>
