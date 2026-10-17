@@ -2,14 +2,25 @@
 // ORIGIN SMP — FULL FIXED index.js
 // ===============================
 
-const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
+const {
+  Client,
+  GatewayIntentBits,
+  Partials
+} = require("discord.js");
+
 const express = require("express");
 const cors = require("cors");
 
+// ===============================
+// EXPRESS SETUP
+// ===============================
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ===============================
+// DISCORD CLIENT
+// ===============================
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -21,22 +32,46 @@ const client = new Client({
 });
 
 // ===============================
-// BOT LOGIN
+// BOT LOGIN (FIXED)
 // ===============================
-client.login("YOUR_BOT_TOKEN_HERE");
+if (!process.env.BOT_TOKEN) {
+  console.error("❌ BOT_TOKEN is missing in Render environment variables!");
+  process.exit(1);
+}
+
+client.login(process.env.BOT_TOKEN)
+  .then(() => console.log("✅ Bot logged in successfully"))
+  .catch(err => {
+    console.error("❌ Failed to login:", err);
+    process.exit(1);
+  });
 
 // ===============================
-// API BASE
+// API PREFIX
 // ===============================
 const API_PREFIX = "/api";
 
 // ===============================
-// GET CHANNELS
+// GET GUILD (SAFE)
+// ===============================
+function getGuild() {
+  const guild = client.guilds.cache.first();
+  if (!guild) {
+    console.error("❌ No guild found. Bot is not in any server.");
+    return null;
+  }
+  return guild;
+}
+
+// ===============================
+// CHANNELS ENDPOINT
 // ===============================
 app.get(`${API_PREFIX}/channels`, async (req, res) => {
   try {
-    const guild = client.guilds.cache.first();
+    const guild = getGuild();
     if (!guild) return res.json([]);
+
+    await guild.channels.fetch();
 
     const channels = guild.channels.cache
       .filter(c => c.type !== 4)
@@ -47,18 +82,20 @@ app.get(`${API_PREFIX}/channels`, async (req, res) => {
 
     res.json(channels);
   } catch (err) {
-    console.error(err);
+    console.error("Channel fetch error:", err);
     res.json([]);
   }
 });
 
 // ===============================
-// GET ROLES
+// ROLES ENDPOINT
 // ===============================
 app.get(`${API_PREFIX}/roles`, async (req, res) => {
   try {
-    const guild = client.guilds.cache.first();
+    const guild = getGuild();
     if (!guild) return res.json([]);
+
+    await guild.roles.fetch();
 
     const roles = guild.roles.cache.map(r => ({
       id: r.id,
@@ -67,17 +104,17 @@ app.get(`${API_PREFIX}/roles`, async (req, res) => {
 
     res.json(roles);
   } catch (err) {
-    console.error(err);
+    console.error("Role fetch error:", err);
     res.json([]);
   }
 });
 
 // ===============================
-// GET MEMBERS
+// MEMBERS ENDPOINT
 // ===============================
 app.get(`${API_PREFIX}/members`, async (req, res) => {
   try {
-    const guild = client.guilds.cache.first();
+    const guild = getGuild();
     if (!guild) return res.json([]);
 
     await guild.members.fetch();
@@ -89,13 +126,13 @@ app.get(`${API_PREFIX}/members`, async (req, res) => {
 
     res.json(members);
   } catch (err) {
-    console.error(err);
+    console.error("Member fetch error:", err);
     res.json([]);
   }
 });
 
 // ===============================
-// GET STATUS
+// STATUS ENDPOINT
 // ===============================
 app.get(`${API_PREFIX}/status`, (req, res) => {
   try {
@@ -105,7 +142,7 @@ app.get(`${API_PREFIX}/status`, (req, res) => {
       ping: client.ws.ping
     });
   } catch (err) {
-    console.error(err);
+    console.error("Status error:", err);
     res.json({ status: "Error", guilds: 0, ping: 0 });
   }
 });
@@ -113,7 +150,7 @@ app.get(`${API_PREFIX}/status`, (req, res) => {
 // ===============================
 // SAVE ANTI-RAID
 // ===============================
-app.post(`${API_PREFIX}/saveAntiRaid`, async (req, res) => {
+app.post(`${API_PREFIX}/saveAntiRaid`, (req, res) => {
   console.log("Anti-Raid Saved:", req.body);
   res.json({ ok: true });
 });
@@ -121,7 +158,7 @@ app.post(`${API_PREFIX}/saveAntiRaid`, async (req, res) => {
 // ===============================
 // DEPLOY TICKETS
 // ===============================
-app.post(`${API_PREFIX}/deployTickets`, async (req, res) => {
+app.post(`${API_PREFIX}/deployTickets`, (req, res) => {
   console.log("Tickets deployed:", req.body);
   res.json({ ok: true });
 });
@@ -129,7 +166,7 @@ app.post(`${API_PREFIX}/deployTickets`, async (req, res) => {
 // ===============================
 // SAVE STAFF
 // ===============================
-app.post(`${API_PREFIX}/saveStaff`, async (req, res) => {
+app.post(`${API_PREFIX}/saveStaff`, (req, res) => {
   console.log("Staff saved:", req.body);
   res.json({ ok: true });
 });
@@ -137,5 +174,8 @@ app.post(`${API_PREFIX}/saveStaff`, async (req, res) => {
 // ===============================
 // EXPRESS SERVER
 // ===============================
-client.login(process.env.BOT_TOKEN);
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+  console.log(`🌐 Origin SMP API running on port ${PORT}`);
+});
