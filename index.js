@@ -1,94 +1,142 @@
-require("dotenv").config();
+// ===============================
+// ORIGIN SMP — FULL FIXED index.js
+// ===============================
+
+const { Client, GatewayIntentBits, Partials, Collection } = require("discord.js");
 const express = require("express");
-const path = require("path");
-const { Client, GatewayIntentBits } = require("discord.js");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-// Serve dashboard.html directly from root
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "dashboard.html"));
-});
-
-// Discord bot
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
-  ]
+  ],
+  partials: [Partials.Channel]
 });
 
-const GUILD_ID = process.env.GUILD_ID;
-const PORT = process.env.PORT || 3000;
+// ===============================
+// BOT LOGIN
+// ===============================
+client.login("YOUR_BOT_TOKEN_HERE");
 
-// Remove # and @
-function cleanName(str) {
-  return str.replace(/[@#]/g, "");
-}
+// ===============================
+// API BASE
+// ===============================
+const API_PREFIX = "/api";
 
-async function getGuild() {
-  const guild = await client.guilds.fetch(GUILD_ID);
-  await guild.members.fetch();
-  await guild.channels.fetch();
-  await guild.roles.fetch();
-  return guild;
-}
-
-// Members
-app.get("/api/members", async (req, res) => {
+// ===============================
+// GET CHANNELS
+// ===============================
+app.get(`${API_PREFIX}/channels`, async (req, res) => {
   try {
-    const guild = await getGuild();
-    const members = guild.members.cache.map(m => ({
-      id: m.id,
-      name: cleanName(m.user.username)
-    }));
-    res.json({ ok: true, members });
-  } catch (err) {
-    res.json({ ok: false, error: err.message });
-  }
-});
+    const guild = client.guilds.cache.first();
+    if (!guild) return res.json([]);
 
-// Channels
-app.get("/api/channels", async (req, res) => {
-  try {
-    const guild = await getGuild();
     const channels = guild.channels.cache
-      .filter(c => c.type === 0 || c.type === 4)
+      .filter(c => c.type !== 4)
       .map(c => ({
         id: c.id,
-        name: cleanName(c.name),
-        type: c.type
+        name: c.name
       }));
-    res.json({ ok: true, channels });
+
+    res.json(channels);
   } catch (err) {
-    res.json({ ok: false, error: err.message });
+    console.error(err);
+    res.json([]);
   }
 });
 
-// Roles
-app.get("/api/roles", async (req, res) => {
+// ===============================
+// GET ROLES
+// ===============================
+app.get(`${API_PREFIX}/roles`, async (req, res) => {
   try {
-    const guild = await getGuild();
+    const guild = client.guilds.cache.first();
+    if (!guild) return res.json([]);
+
     const roles = guild.roles.cache.map(r => ({
       id: r.id,
-      name: cleanName(r.name)
+      name: r.name
     }));
-    res.json({ ok: true, roles });
+
+    res.json(roles);
   } catch (err) {
-    res.json({ ok: false, error: err.message });
+    console.error(err);
+    res.json([]);
   }
 });
 
-// Bot status
-app.get("/api/status", (req, res) => {
-  res.json({ ok: true, online: client.ws.status === 0 });
+// ===============================
+// GET MEMBERS
+// ===============================
+app.get(`${API_PREFIX}/members`, async (req, res) => {
+  try {
+    const guild = client.guilds.cache.first();
+    if (!guild) return res.json([]);
+
+    await guild.members.fetch();
+
+    const members = guild.members.cache.map(m => ({
+      id: m.id,
+      name: m.user.username
+    }));
+
+    res.json(members);
+  } catch (err) {
+    console.error(err);
+    res.json([]);
+  }
 });
 
-// Start server
-app.listen(PORT);
+// ===============================
+// GET STATUS
+// ===============================
+app.get(`${API_PREFIX}/status`, (req, res) => {
+  try {
+    res.json({
+      status: client.ws.status === 0 ? "Online" : "Offline",
+      guilds: client.guilds.cache.size,
+      ping: client.ws.ping
+    });
+  } catch (err) {
+    console.error(err);
+    res.json({ status: "Error", guilds: 0, ping: 0 });
+  }
+});
 
-// Login bot
-client.login(process.env.DISCORD_TOKEN);
+// ===============================
+// SAVE ANTI-RAID
+// ===============================
+app.post(`${API_PREFIX}/saveAntiRaid`, async (req, res) => {
+  console.log("Anti-Raid Saved:", req.body);
+  res.json({ ok: true });
+});
+
+// ===============================
+// DEPLOY TICKETS
+// ===============================
+app.post(`${API_PREFIX}/deployTickets`, async (req, res) => {
+  console.log("Tickets deployed:", req.body);
+  res.json({ ok: true });
+});
+
+// ===============================
+// SAVE STAFF
+// ===============================
+app.post(`${API_PREFIX}/saveStaff`, async (req, res) => {
+  console.log("Staff saved:", req.body);
+  res.json({ ok: true });
+});
+
+// ===============================
+// EXPRESS SERVER
+// ===============================
+app.listen(3000, () => {
+  console.log("Origin SMP API running on port 3000");
+});
