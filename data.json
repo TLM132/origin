@@ -1,0 +1,12 @@
+{
+  "ticketCategory": "1560580950771900488",
+  "staffRole": "1560577019136450570",
+  "points": {
+    "1503231776074764288": 7
+  },
+  "antiRaid": {
+    "autoKick": false,
+    "logBots": false,
+    "allowed": []
+  }
+}

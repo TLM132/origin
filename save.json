@@ -1,0 +1,22 @@
+[
+  {
+    "ticketCategory": "1560580861160853527",
+    "staffRole": "1560577019136450570",
+    "antiRaid": {
+      "autoKick": false,
+      "logBots": false,
+      "allowed": []
+    },
+    "time": 1792228166362
+  },
+  {
+    "ticketCategory": "1560580861160853527",
+    "staffRole": "1560577019136450570",
+    "antiRaid": {
+      "autoKick": false,
+      "logBots": false,
+      "allowed": []
+    },
+    "time": 1792228166907
+  }
+]
