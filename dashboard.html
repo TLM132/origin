@@ -1192,6 +1192,170 @@
     });
 
     refreshAll();
+    <script>
+async function api(path) {
+  const res = await fetch(path);
+  return res.json();
+}
+
+function clear(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+
+function addLog(msg, type = "Info") {
+  const logList = document.getElementById("logList");
+  const item = document.createElement("div");
+  item.className = "log-item";
+
+  const left = document.createElement("div");
+  const text = document.createElement("div");
+  text.className = "log-text";
+  text.textContent = msg;
+
+  const time = document.createElement("div");
+  time.className = "log-time";
+  time.textContent = new Date().toLocaleTimeString();
+
+  left.appendChild(text);
+  left.appendChild(time);
+
+  const badge = document.createElement("span");
+  badge.className = "badge badge-info";
+  badge.textContent = type;
+
+  item.appendChild(left);
+  item.appendChild(badge);
+  logList.prepend(item);
+}
+
+async function loadStatus() {
+  const data = await api("/api/status");
+  const dot = document.getElementById("statusDot");
+  const txt = document.getElementById("statusText");
+
+  if (data.online) {
+    dot.style.background = "var(--accent)";
+    txt.textContent = "Bot Online";
+  } else {
+    dot.style.background = "#7f1d1d";
+    txt.textContent = "Bot Offline";
+  }
+}
+
+async function loadMembers() {
+  const data = await api("/api/members");
+  const members = data.members || [];
+
+  const allowed = document.getElementById("allowedBotAddersDropdown");
+  const staffMembers = document.getElementById("staffMemberDropdown");
+
+  clear(allowed);
+  clear(staffMembers);
+
+  members.forEach(m => {
+    const opt1 = document.createElement("option");
+    opt1.value = m.id;
+    opt1.textContent = m.name;
+    allowed.appendChild(opt1);
+
+    const opt2 = document.createElement("option");
+    opt2.value = m.id;
+    opt2.textContent = m.name;
+    staffMembers.appendChild(opt2);
+  });
+
+  document.getElementById("trackedMembersStat").textContent = members.length;
+  addLog("Loaded guild members");
+}
+
+async function loadChannels() {
+  const data = await api("/api/channels");
+  const channels = data.channels || [];
+
+  const catDD = document.getElementById("ticketCategoryDropdown");
+  const chanDD = document.getElementById("ticketPanelChannelDropdown");
+
+  clear(catDD);
+  clear(chanDD);
+
+  channels.forEach(c => {
+    if (c.type === 4) {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.name;
+      catDD.appendChild(opt);
+    }
+    if (c.type === 0) {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.name;
+      chanDD.appendChild(opt);
+    }
+  });
+
+  addLog("Loaded guild channels & categories");
+}
+
+async function loadRoles() {
+  const data = await api("/api/roles");
+  const roles = data.roles || [];
+
+  const pingDD = document.getElementById("ticketPingRoleDropdown");
+  const staffDD = document.getElementById("staffRoleDropdown");
+
+  clear(pingDD);
+  clear(staffDD);
+
+  roles.forEach(r => {
+    const opt1 = document.createElement("option");
+    opt1.value = r.id;
+    opt1.textContent = r.name;
+    pingDD.appendChild(opt1);
+
+    const opt2 = document.createElement("option");
+    opt2.value = r.id;
+    opt2.textContent = r.name;
+    staffDD.appendChild(opt2);
+  });
+
+  document.getElementById("staffRoleStat").textContent =
+    roles.length ? roles[0].name : "Not set";
+
+  addLog("Loaded guild roles");
+}
+
+async function refreshAll() {
+  addLog("Refreshing guild data...");
+  await loadStatus();
+  await loadMembers();
+  await loadChannels();
+  await loadRoles();
+  addLog("Guild data refreshed");
+}
+
+document.getElementById("refreshAllBtn").addEventListener("click", refreshAll);
+
+// Tab switching
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const target = btn.dataset.section;
+    document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
+  });
+});
+
+// Toggles
+document.querySelectorAll(".toggle").forEach(t => {
+  t.addEventListener("click", () => t.classList.toggle("active"));
+});
+
+// Initial load
+refreshAll();
+</script>
+
   </script>
 </body>
 </html>
