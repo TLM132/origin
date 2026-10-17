@@ -10,6 +10,7 @@ const {
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 // ===============================
 // EXPRESS SETUP
@@ -62,6 +63,27 @@ function getGuild() {
   }
   return guild;
 }
+
+// ===============================
+// ROOT FIX — REMOVES "Cannot GET /"
+// ===============================
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>Origin SMP API</h1>
+    <p>Your backend is running.</p>
+    <p>Dashboard is not hosted here.</p>
+    <p>Available endpoints:</p>
+    <ul>
+      <li>/api/channels</li>
+      <li>/api/roles</li>
+      <li>/api/members</li>
+      <li>/api/status</li>
+      <li>/api/saveAntiRaid</li>
+      <li>/api/deployTickets</li>
+      <li>/api/saveStaff</li>
+    </ul>
+  `);
+});
 
 // ===============================
 // CHANNELS ENDPOINT
