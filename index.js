@@ -1,17 +1,20 @@
-// index.js
-// Origin Admin Dashboard backend
-// Pulls ALL channels, roles, members from the guild ID in .env
-// Removes all # and @ from names before sending to frontend
-
 require("dotenv").config();
 const express = require("express");
-const { Client, GatewayIntentBits } = require("discord.js");
 const path = require("path");
+const { Client, GatewayIntentBits } = require("discord.js");
 
 const app = express();
 app.use(express.json());
+
+// Serve EVERYTHING inside /public
 app.use(express.static(path.join(__dirname, "public")));
 
+// Serve dashboard.html on root
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "dashboard.html"));
+});
+
+// Discord bot
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -36,12 +39,11 @@ const client = new Client({
 const GUILD_ID = process.env.GUILD_ID;
 const PORT = process.env.PORT || 3000;
 
-// Utility to remove # and @ from names
+// Remove # and @
 function cleanName(str) {
   return str.replace(/[@#]/g, "");
 }
 
-// Fetch guild object
 async function getGuild() {
   const guild = await client.guilds.fetch(GUILD_ID);
   await guild.members.fetch();
@@ -50,7 +52,7 @@ async function getGuild() {
   return guild;
 }
 
-// API: Get all members
+// Members
 app.get("/api/members", async (req, res) => {
   try {
     const guild = await getGuild();
@@ -64,12 +66,12 @@ app.get("/api/members", async (req, res) => {
   }
 });
 
-// API: Get all channels
+// Channels
 app.get("/api/channels", async (req, res) => {
   try {
     const guild = await getGuild();
     const channels = guild.channels.cache
-      .filter(c => c.type === 0 || c.type === 4) // text + category
+      .filter(c => c.type === 0 || c.type === 4)
       .map(c => ({
         id: c.id,
         name: cleanName(c.name),
@@ -81,7 +83,7 @@ app.get("/api/channels", async (req, res) => {
   }
 });
 
-// API: Get all roles
+// Roles
 app.get("/api/roles", async (req, res) => {
   try {
     const guild = await getGuild();
@@ -95,7 +97,7 @@ app.get("/api/roles", async (req, res) => {
   }
 });
 
-// API: Bot status
+// Bot status
 app.get("/api/status", (req, res) => {
   res.json({ ok: true, online: client.ws.status === 0 });
 });
