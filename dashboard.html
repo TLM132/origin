@@ -6,10 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
+    /* GLOBAL SCROLLBAR THEME */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #0b0f14;
+}
+
+/* Chrome, Edge, Opera */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0b0f14;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+  border: 2px solid #0b0f14;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-alt);
+}
+
     :root {
       --bg: #050608;
       --bg-alt: #0b0f14;
-      --card: #111827;
+      --card: #12151b;
       --accent: #ff7a18;
       --accent-soft: rgba(255, 122, 24, 0.18);
       --accent-strong: rgba(255, 122, 24, 0.7);
@@ -17,43 +42,21 @@
       --text: #f3f4f6;
       --muted: #9ca3af;
       --border: #1f2933;
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.85);
-      --shadow-sm: 0 14px 36px rgba(0, 0, 0, 0.65);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.7);
+      --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.55);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scrollbar-width: thin;
-      scrollbar-color: var(--accent) #050608;
-    }
-
-    *::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    *::-webkit-scrollbar-track {
-      background: #050608;
-    }
-
-    *::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 10px;
-      border: 2px solid #050608;
-    }
-
-    *::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-alt);
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #111827 0, #050608 45%, #000 100%),
-        radial-gradient(circle at bottom, #020617 0, #000 55%, #000 100%);
+      background: radial-gradient(circle at top, #111827 0, #050608 45%, #000 100%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -72,34 +75,34 @@
       content: "";
       position: absolute;
       border-radius: 999px;
-      filter: blur(70px);
-      opacity: 0.4;
+      filter: blur(60px);
+      opacity: 0.35;
       mix-blend-mode: screen;
     }
 
     .glow-orbit::before {
-      width: 460px;
-      height: 460px;
+      width: 420px;
+      height: 420px;
       background: radial-gradient(circle, var(--accent), transparent 70%);
       top: -80px;
       left: -60px;
     }
 
     .glow-orbit::after {
-      width: 420px;
-      height: 420px;
+      width: 380px;
+      height: 380px;
       background: radial-gradient(circle, var(--accent-alt), transparent 70%);
       bottom: -60px;
       right: -40px;
     }
 
     header {
-      padding: 20px 32px 12px;
+      padding: 22px 32px 10px;
       border-bottom: 1px solid rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(22px);
+      backdrop-filter: blur(18px);
       background: linear-gradient(
         to bottom,
-        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.95),
         rgba(15, 23, 42, 0.7)
       );
       position: sticky;
@@ -123,8 +126,8 @@
     }
 
     .brand-logo {
-      width: 46px;
-      height: 46px;
+      width: 42px;
+      height: 42px;
       border-radius: 999px;
       background: conic-gradient(
         from 180deg,
@@ -134,9 +137,8 @@
         var(--accent)
       );
       padding: 2px;
-      box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.5),
-        0 18px 40px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4),
+        0 14px 32px rgba(0, 0, 0, 0.9);
     }
 
     .brand-logo-inner {
@@ -149,8 +151,8 @@
       justify-content: center;
       color: #f9fafb;
       font-weight: 700;
-      font-size: 19px;
-      letter-spacing: 0.06em;
+      font-size: 18px;
+      letter-spacing: 0.04em;
     }
 
     .brand-text {
@@ -162,7 +164,7 @@
     .brand-title {
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
       color: #f9fafb;
     }
@@ -181,7 +183,7 @@
     .pill {
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.4);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -208,33 +210,29 @@
       cursor: pointer;
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
-      box-shadow: 0 16px 40px rgba(255, 122, 24, 0.7);
+      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.6);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition:
-        transform 0.15s ease-out,
-        box-shadow 0.15s ease-out,
-        background 0.15s ease-out,
-        filter 0.15s ease-out;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+        background 0.15s ease-out;
     }
 
     .primary-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 20px 50px rgba(255, 122, 24, 0.85);
+      box-shadow: 0 18px 40px rgba(255, 122, 24, 0.75);
       background: linear-gradient(135deg, var(--accent-alt), var(--accent));
-      filter: brightness(1.05);
     }
 
     .primary-btn-icon {
       width: 16px;
       height: 16px;
       border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.5);
+      border: 1px solid rgba(248, 250, 252, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -263,7 +261,7 @@
     .card {
       background: radial-gradient(circle at top left, #111827, #020617);
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.9);
       box-shadow: var(--shadow-soft);
       padding: 18px 18px 16px;
       position: relative;
@@ -275,9 +273,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background:
-        radial-gradient(circle at top right, var(--accent-soft), transparent 60%),
-        linear-gradient(to bottom right, rgba(15, 23, 42, 0.4), transparent 60%);
+      background: radial-gradient(circle at top right, var(--accent-soft), transparent 60%);
       opacity: 0.9;
       pointer-events: none;
     }
@@ -294,7 +290,7 @@
     .card-title {
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #f9fafb;
     }
@@ -309,8 +305,8 @@
       display: inline-flex;
       padding: 3px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
       gap: 3px;
     }
 
@@ -320,23 +316,19 @@
       outline: none;
       padding: 5px 10px;
       font-size: 11px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       cursor: pointer;
       background: transparent;
       color: var(--muted);
-      transition:
-        background 0.15s ease-out,
-        color 0.15s ease-out,
-        transform 0.15s ease-out,
-        box-shadow 0.15s ease-out;
+      transition: background 0.15s ease-out, color 0.15s ease-out,
+        transform 0.15s ease-out;
     }
 
     .tab-btn.active {
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
       transform: translateY(-0.5px);
-      box-shadow: 0 10px 24px rgba(255, 122, 24, 0.7);
     }
 
     .card-body {
@@ -399,36 +391,27 @@
     }
 
     .input,
-    .select,
-    textarea.input {
+    .select {
       width: 100%;
       padding: 8px 10px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.9);
       background: #050814;
       color: var(--text);
       font-size: 13px;
       outline: none;
-      transition:
-        border-color 0.15s ease-out,
-        box-shadow 0.15s ease-out,
-        background 0.15s ease-out,
-        transform 0.15s ease-out;
-      resize: vertical;
+      transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out,
+        background 0.15s ease-out, transform 0.15s ease-out;
     }
 
-    .input::placeholder,
-    textarea.input::placeholder {
+    .input::placeholder {
       color: rgba(148, 163, 184, 0.7);
     }
 
     .input:focus,
-    .select:focus,
-    textarea.input:focus {
+    .select:focus {
       border-color: var(--accent);
-      box-shadow:
-        0 0 0 1px rgba(255, 122, 24, 0.8),
-        0 12px 28px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 0 0 1px rgba(255, 122, 24, 0.7), 0 10px 25px rgba(0, 0, 0, 0.9);
       background: #050814;
       transform: translateY(-0.5px);
     }
@@ -439,10 +422,6 @@
       background-repeat: no-repeat;
       background-position: right 10px center;
       background-size: 18px 18px;
-    }
-
-    .select[multiple] {
-      background-image: none;
     }
 
     .select-wrapper {
@@ -457,7 +436,7 @@
       width: 16px;
       height: 16px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -476,41 +455,35 @@
     }
 
     .toggle {
-      width: 44px;
-      height: 24px;
+      width: 40px;
+      height: 22px;
       border-radius: 999px;
-      background: rgba(31, 41, 55, 0.95);
-      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
       position: relative;
       cursor: pointer;
-      transition:
-        background 0.15s ease-out,
-        border-color 0.15s ease-out,
-        box-shadow 0.15s ease-out;
+      transition: background 0.15s ease-out, border-color 0.15s ease-out;
     }
 
     .toggle-knob {
       position: absolute;
-      top: 3px;
-      left: 3px;
+      top: 2px;
+      left: 2px;
       width: 18px;
       height: 18px;
       border-radius: 999px;
       background: #f9fafb;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-      transition:
-        transform 0.15s ease-out,
-        background 0.15s ease-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease-out, background 0.15s ease-out;
     }
 
     .toggle.active {
       background: var(--accent-strong);
       border-color: var(--accent);
-      box-shadow: 0 10px 24px rgba(255, 122, 24, 0.7);
     }
 
     .toggle.active .toggle-knob {
-      transform: translateX(18px);
+      transform: translateX(16px);
       background: #fff7ed;
     }
 
@@ -525,7 +498,7 @@
     .btn {
       padding: 7px 14px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(55, 65, 81, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
       background: #050814;
       color: var(--text);
       font-size: 12px;
@@ -533,16 +506,13 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition:
-        background 0.15s ease-out,
-        border-color 0.15s ease-out,
-        transform 0.15s ease-out,
-        box-shadow 0.15s ease-out;
+      transition: background 0.15s ease-out, border-color 0.15s ease-out,
+        transform 0.15s ease-out, box-shadow 0.15s ease-out;
     }
 
     .btn:hover {
-      background: rgba(31, 41, 55, 0.95);
-      border-color: rgba(75, 85, 99, 0.95);
+      background: rgba(31, 41, 55, 0.9);
+      border-color: rgba(75, 85, 99, 0.9);
       transform: translateY(-0.5px);
       box-shadow: var(--shadow-sm);
     }
@@ -551,7 +521,7 @@
       border-color: var(--accent);
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
-      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.8);
+      box-shadow: 0 12px 30px rgba(255, 122, 24, 0.7);
     }
 
     .btn-primary:hover {
@@ -562,7 +532,7 @@
       width: 14px;
       height: 14px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -570,7 +540,7 @@
     }
 
     .log-list {
-      max-height: 280px;
+      max-height: 260px;
       overflow-y: auto;
       padding-right: 4px;
       margin-top: 8px;
@@ -579,7 +549,7 @@
     .log-item {
       padding: 6px 8px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.9);
       background: #050814;
       font-size: 11px;
       display: flex;
@@ -605,23 +575,13 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      border: 1px solid rgba(55, 65, 81, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
       color: rgba(148, 163, 184, 0.9);
     }
 
     .badge-info {
-      border-color: rgba(59, 130, 246, 0.8);
-      color: rgba(59, 130, 246, 0.95);
-    }
-
-    .badge-success {
-      border-color: rgba(34, 197, 94, 0.8);
-      color: rgba(34, 197, 94, 0.95);
-    }
-
-    .badge-warning {
-      border-color: rgba(234, 179, 8, 0.8);
-      color: rgba(234, 179, 8, 0.95);
+      border-color: rgba(59, 130, 246, 0.7);
+      color: rgba(59, 130, 246, 0.9);
     }
 
     .stat-grid {
@@ -640,7 +600,7 @@
 
     .stat-card {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.9);
       background: #050814;
       padding: 8px 10px;
       display: flex;
@@ -709,12 +669,7 @@
       cursor: pointer;
       z-index: 9999;
       display: none;
-      box-shadow: 0 18px 44px rgba(255, 122, 24, 0.9);
-    }
-
-    #saveBtn span {
-      font-size: 12px;
-      opacity: 0.9;
+      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.8);
     }
   </style>
 </head>
@@ -734,9 +689,9 @@
         </div>
       </div>
       <div class="header-actions">
-        <div class="pill" id="botStatusPill">
-          <span class="status-dot" id="botStatusDot"></span>
-          <span id="botStatusText">Bot Online</span>
+        <div class="pill">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Bot Online</span>
         </div>
         <button class="primary-btn" id="refreshAllBtn">
           <span class="primary-btn-icon">⟳</span>
@@ -996,53 +951,19 @@
 
   <footer>
     <div class="footer-inner">
-      <div>Origin Admin Dashboard • Local control panel</div>
+      <div>Origin Admin Dashboard</div>
       <div class="footer-right">
         <div class="dot"></div>
-        <span id="footerStatusText">Unsaved changes: none</span>
+        <div id="footerStatusText">Guild data loaded from bot API</div>
       </div>
     </div>
   </footer>
 
-  <button id="saveBtn">
-    Save changes
-    <span id="saveBtnHint">Ctrl+S</span>
-  </button>
+  <button id="saveBtn">Save Changes</button>
 
   <script>
-    // Simple in-memory state to simulate backend data
-    const state = {
-      antiRaid: {
-        autoKickBots: false,
-        logUnauthorizedBots: false,
-        allowedBotAdders: []
-      },
-      tickets: {
-        panelName: "",
-        description: "",
-        maxPerUser: 3,
-        categoryId: null,
-        panelChannelId: null,
-        pingRoleId: null
-      },
-      staff: {
-        staffRoleId: null,
-        requiredPoints: 10,
-        trackedMembers: [],
-        selectedMemberId: null,
-        selectedMemberPoints: 0
-      },
-      botOnline: true,
-      dirty: false
-    };
-
-    const logList = document.getElementById("logList");
-    const saveBtn = document.getElementById("saveBtn");
-    const footerStatusText = document.getElementById("footerStatusText");
-    const botStatusDot = document.getElementById("botStatusDot");
-    const botStatusText = document.getElementById("botStatusText");
-
-    function addLog(message, type = "info") {
+    function addLog(message, type = "Info") {
+      const logList = document.getElementById("logList");
       const item = document.createElement("div");
       item.className = "log-item";
 
@@ -1059,304 +980,218 @@
       left.appendChild(time);
 
       const badge = document.createElement("span");
-      badge.className = "badge";
-      if (type === "info") badge.classList.add("badge-info");
-      if (type === "success") badge.classList.add("badge-success");
-      if (type === "warning") badge.classList.add("badge-warning");
-      badge.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+      badge.className = "badge badge-info";
+      badge.textContent = type;
 
       item.appendChild(left);
       item.appendChild(badge);
-
       logList.prepend(item);
     }
 
     function markDirty() {
-      if (!state.dirty) {
-        state.dirty = true;
-        saveBtn.style.display = "block";
-        footerStatusText.textContent = "Unsaved changes: pending";
-      }
+      const saveBtn = document.getElementById("saveBtn");
+      saveBtn.style.display = "block";
     }
 
-    function clearDirty() {
-      state.dirty = false;
-      saveBtn.style.display = "none";
-      footerStatusText.textContent = "Unsaved changes: none";
-    }
+    document.querySelectorAll(".input, .select, .toggle").forEach(el => {
+      el.addEventListener("change", markDirty);
+      el.addEventListener("click", markDirty);
+    });
 
-    // Tabs
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = btn.dataset.section;
-
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        document.querySelectorAll(".section").forEach(sec => {
-          sec.classList.toggle("active", sec.id === target);
-        });
-
-        addLog(`Switched to ${btn.textContent.trim()} tab`, "info");
+    document.querySelectorAll(".toggle").forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("active");
       });
     });
 
-    // Toggles
-    function setupToggle(id, key) {
-      const el = document.getElementById(id);
-      el.addEventListener("click", () => {
-        el.classList.toggle("active");
-        const active = el.classList.contains("active");
-        state.antiRaid[key] = active;
-        markDirty();
-        addLog(`${key.replace(/([A-Z])/g, " $1")} set to ${active ? "enabled" : "disabled"}`, "info");
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const target = btn.getAttribute("data-section");
+        document.querySelectorAll(".section").forEach(sec => {
+          sec.classList.remove("active");
+        });
+        document.getElementById(target).classList.add("active");
       });
+    });
+
+    async function loadStatus() {
+      try {
+        const res = await fetch("/api/status");
+        const data = await res.json();
+        const online = data.online;
+        const statusText = document.getElementById("statusText");
+        const statusDot = document.getElementById("statusDot");
+        const footerStatusText = document.getElementById("footerStatusText");
+
+        if (online) {
+          statusText.textContent = "Bot Online";
+          statusDot.style.background = "var(--accent)";
+          footerStatusText.textContent = "Bot connected to guild and serving data";
+        } else {
+          statusText.textContent = "Bot Offline";
+          statusDot.style.background = "#7f1d1d";
+          footerStatusText.textContent = "Bot offline – data may be stale";
+        }
+      } catch (e) {
+        addLog("Failed to load bot status", "Error");
+      }
     }
 
-    setupToggle("autoKickBotsToggle", "autoKickBots");
-    setupToggle("logUnauthorizedBotsToggle", "logUnauthorizedBots");
+    async function loadMembers() {
+      try {
+        const res = await fetch("/api/members");
+        const data = await res.json();
+        const members = data.members || [];
 
-    // Fake data loaders
-    function loadFakeMembers() {
-      const dropdowns = [
-        document.getElementById("allowedBotAddersDropdown"),
-        document.getElementById("staffMemberDropdown")
-      ];
+        const allowedBotAddersDropdown = document.getElementById("allowedBotAddersDropdown");
+        const staffMemberDropdown = document.getElementById("staffMemberDropdown");
 
-      const members = [
-        { id: "1", name: "Tyler" },
-        { id: "2", name: "ModeratorOne" },
-        { id: "3", name: "HelperTwo" },
-        { id: "4", name: "TrustedBotAdder" }
-      ];
+        allowedBotAddersDropdown.innerHTML = "";
+        staffMemberDropdown.innerHTML = "";
 
-      dropdowns.forEach(dd => {
-        dd.innerHTML = "";
         members.forEach(m => {
-          const opt = document.createElement("option");
-          opt.value = m.id;
-          opt.textContent = m.name;
-          dd.appendChild(opt);
-        });
-      });
+          const opt1 = document.createElement("option");
+          opt1.value = m.id;
+          opt1.textContent = m.name;
+          allowedBotAddersDropdown.appendChild(opt1);
 
-      state.staff.trackedMembers = members.map(m => ({ id: m.id, name: m.name, points: 0 }));
-      document.getElementById("trackedMembersStat").textContent = state.staff.trackedMembers.length;
+          const opt2 = document.createElement("option");
+          opt2.value = m.id;
+          opt2.textContent = m.name;
+          staffMemberDropdown.appendChild(opt2);
+        });
+
+        document.getElementById("trackedMembersStat").textContent = members.length.toString();
+        addLog("Loaded members from guild", "Info");
+      } catch (e) {
+        addLog("Failed to load members", "Error");
+      }
     }
 
-    function loadFakeRoles() {
-      const roleDropdowns = [
-        document.getElementById("ticketPingRoleDropdown"),
-        document.getElementById("staffRoleDropdown")
-      ];
+    async function loadChannels() {
+      try {
+        const res = await fetch("/api/channels");
+        const data = await res.json();
+        const channels = data.channels || [];
 
-      const roles = [
-        { id: "r1", name: "@Support" },
-        { id: "r2", name: "@Staff" },
-        { id: "r3", name: "@Admin" }
-      ];
+        const ticketCategoryDropdown = document.getElementById("ticketCategoryDropdown");
+        const ticketPanelChannelDropdown = document.getElementById("ticketPanelChannelDropdown");
 
-      roleDropdowns.forEach(dd => {
-        dd.innerHTML = "";
+        ticketCategoryDropdown.innerHTML = "";
+        ticketPanelChannelDropdown.innerHTML = "";
+
+        channels.forEach(c => {
+          if (c.type === 4) {
+            const optCat = document.createElement("option");
+            optCat.value = c.id;
+            optCat.textContent = c.name;
+            ticketCategoryDropdown.appendChild(optCat);
+          }
+          if (c.type === 0) {
+            const optChan = document.createElement("option");
+            optChan.value = c.id;
+            optChan.textContent = c.name;
+            ticketPanelChannelDropdown.appendChild(optChan);
+          }
+        });
+
+        addLog("Loaded channels and categories from guild", "Info");
+      } catch (e) {
+        addLog("Failed to load channels", "Error");
+      }
+    }
+
+    async function loadRoles() {
+      try {
+        const res = await fetch("/api/roles");
+        const data = await res.json();
+        const roles = data.roles || [];
+
+        const ticketPingRoleDropdown = document.getElementById("ticketPingRoleDropdown");
+        const staffRoleDropdown = document.getElementById("staffRoleDropdown");
+
+        ticketPingRoleDropdown.innerHTML = "";
+        staffRoleDropdown.innerHTML = "";
+
         roles.forEach(r => {
-          const opt = document.createElement("option");
-          opt.value = r.id;
-          opt.textContent = r.name;
-          dd.appendChild(opt);
+          const optPing = document.createElement("option");
+          optPing.value = r.id;
+          optPing.textContent = r.name;
+          ticketPingRoleDropdown.appendChild(optPing);
+
+          const optStaff = document.createElement("option");
+          optStaff.value = r.id;
+          optStaff.textContent = r.name;
+          staffRoleDropdown.appendChild(optStaff);
         });
-      });
+
+        document.getElementById("staffRoleStat").textContent =
+          roles.length > 0 ? roles[0].name : "Not set";
+
+        addLog("Loaded roles from guild", "Info");
+      } catch (e) {
+        addLog("Failed to load roles", "Error");
+      }
     }
 
-    function loadFakeChannels() {
-      const channelDropdowns = [
-        document.getElementById("ticketCategoryDropdown"),
-        document.getElementById("ticketPanelChannelDropdown")
-      ];
-
-      const categories = [
-        { id: "c1", name: "#tickets" },
-        { id: "c2", name: "#support" },
-        { id: "c3", name: "#appeals" }
-      ];
-
-      channelDropdowns.forEach(dd => {
-        dd.innerHTML = "";
-        categories.forEach(c => {
-          const opt = document.createElement("option");
-          opt.value = c.id;
-          opt.textContent = c.name;
-          dd.appendChild(opt);
-        });
-      });
-    }
-
-    function refreshAll() {
-      loadFakeMembers();
-      loadFakeRoles();
-      loadFakeChannels();
-      addLog("Refreshed dashboard data", "success");
+    async function refreshAll() {
+      addLog("Refreshing guild data...", "Info");
+      await Promise.all([loadStatus(), loadMembers(), loadChannels(), loadRoles()]);
+      addLog("Guild data refreshed", "Info");
     }
 
     document.getElementById("refreshAllBtn").addEventListener("click", () => {
       refreshAll();
     });
 
-    // Tickets inputs
-    document.getElementById("ticketPanelNameInput").addEventListener("input", e => {
-      state.tickets.panelName = e.target.value;
+    document.getElementById("saveAntiRaidBtn").addEventListener("click", () => {
+      addLog("Anti‑Raid settings saved (frontend stub)", "Info");
+      document.getElementById("saveBtn").style.display = "none";
+    });
+
+    document.getElementById("resetAntiRaidBtn").addEventListener("click", () => {
+      document.getElementById("autoKickBotsToggle").classList.remove("active");
+      document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
+      addLog("Anti‑Raid settings reset", "Info");
       markDirty();
     });
 
-    document.getElementById("ticketDescriptionInput").addEventListener("input", e => {
-      state.tickets.description = e.target.value;
-      markDirty();
-    });
-
-    document.getElementById("ticketMaxPerUserInput").addEventListener("input", e => {
-      state.tickets.maxPerUser = Number(e.target.value) || 1;
-      markDirty();
-    });
-
-    document.getElementById("ticketCategoryDropdown").addEventListener("change", e => {
-      state.tickets.categoryId = e.target.value;
-      markDirty();
-    });
-
-    document.getElementById("ticketPanelChannelDropdown").addEventListener("change", e => {
-      state.tickets.panelChannelId = e.target.value;
-      markDirty();
-    });
-
-    document.getElementById("ticketPingRoleDropdown").addEventListener("change", e => {
-      state.tickets.pingRoleId = e.target.value;
-      markDirty();
+    document.getElementById("deployTicketsBtn").addEventListener("click", () => {
+      addLog("Ticket panel deploy requested (frontend stub)", "Info");
+      document.getElementById("saveBtn").style.display = "none";
     });
 
     document.getElementById("resetTicketsBtn").addEventListener("click", () => {
       document.getElementById("ticketPanelNameInput").value = "";
       document.getElementById("ticketDescriptionInput").value = "";
       document.getElementById("ticketMaxPerUserInput").value = 3;
-      state.tickets = {
-        panelName: "",
-        description: "",
-        maxPerUser: 3,
-        categoryId: null,
-        panelChannelId: null,
-        pingRoleId: null
-      };
+      addLog("Ticket settings reset", "Info");
       markDirty();
-      addLog("Ticket settings reset", "warning");
-    });
-
-    document.getElementById("deployTicketsBtn").addEventListener("click", () => {
-      addLog("Ticket panel deployed (simulate sending message to Discord)", "success");
-      clearDirty();
-    });
-
-    // Anti-raid buttons
-    document.getElementById("resetAntiRaidBtn").addEventListener("click", () => {
-      state.antiRaid = {
-        autoKickBots: false,
-        logUnauthorizedBots: false,
-        allowedBotAdders: []
-      };
-      document.getElementById("autoKickBotsToggle").classList.remove("active");
-      document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
-      document.getElementById("allowedBotAddersDropdown").selectedIndex = -1;
-      markDirty();
-      addLog("Anti‑raid settings reset", "warning");
-    });
-
-    document.getElementById("saveAntiRaidBtn").addEventListener("click", () => {
-      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
-      const selected = Array.from(allowedSelect.selectedOptions).map(o => o.value);
-      state.antiRaid.allowedBotAdders = selected;
-      addLog("Anti‑raid settings saved", "success");
-      clearDirty();
-    });
-
-    // Staff settings
-    document.getElementById("staffRoleDropdown").addEventListener("change", e => {
-      state.staff.staffRoleId = e.target.value;
-      const label = e.target.selectedOptions[0]?.textContent || "Not set";
-      document.getElementById("staffRoleStat").textContent = label;
-      markDirty();
-    });
-
-    document.getElementById("requiredPointsInput").addEventListener("input", e => {
-      const val = Number(e.target.value) || 1;
-      state.staff.requiredPoints = val;
-      document.getElementById("requiredPointsStat").textContent = val;
-      markDirty();
-    });
-
-    document.getElementById("staffMemberDropdown").addEventListener("change", e => {
-      const id = e.target.value;
-      state.staff.selectedMemberId = id;
-      const member = state.staff.trackedMembers.find(m => m.id === id);
-      const points = member ? member.points : 0;
-      state.staff.selectedMemberPoints = points;
-      document.getElementById("staffMemberPointsInput").value = points;
-      markDirty();
-    });
-
-    document.getElementById("staffMemberPointsInput").addEventListener("input", e => {
-      const val = Number(e.target.value) || 0;
-      state.staff.selectedMemberPoints = val;
-      const member = state.staff.trackedMembers.find(m => m.id === state.staff.selectedMemberId);
-      if (member) member.points = val;
-      markDirty();
-    });
-
-    document.getElementById("resetStaffBtn").addEventListener("click", () => {
-      state.staff.requiredPoints = 10;
-      state.staff.selectedMemberPoints = 0;
-      document.getElementById("requiredPointsInput").value = 10;
-      document.getElementById("requiredPointsStat").textContent = 10;
-      document.getElementById("staffMemberPointsInput").value = 0;
-      markDirty();
-      addLog("Staff settings reset", "warning");
     });
 
     document.getElementById("saveStaffBtn").addEventListener("click", () => {
-      addLog("Staff settings saved", "success");
-      clearDirty();
+      const requiredPoints = document.getElementById("requiredPointsInput").value;
+      document.getElementById("requiredPointsStat").textContent = requiredPoints;
+      addLog("Staff settings saved (frontend stub)", "Info");
+      document.getElementById("saveBtn").style.display = "none";
     });
 
-    // Save button
-    saveBtn.addEventListener("click", () => {
-      addLog("All pending changes saved (local only)", "success");
-      clearDirty();
+    document.getElementById("resetStaffBtn").addEventListener("click", () => {
+      document.getElementById("requiredPointsInput").value = 10;
+      document.getElementById("staffMemberPointsInput").value = 0;
+      addLog("Staff settings reset", "Info");
+      markDirty();
     });
 
-    document.addEventListener("keydown", e => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
-        e.preventDefault();
-        if (state.dirty) {
-          addLog("Ctrl+S pressed: changes saved", "success");
-          clearDirty();
-        }
-      }
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      addLog("Global save triggered (frontend stub)", "Info");
+      document.getElementById("saveBtn").style.display = "none";
     });
 
-    // Simulate bot status toggle every 30s (for visual interest)
-    setInterval(() => {
-      state.botOnline = !state.botOnline;
-      botStatusDot.style.background = state.botOnline ? varAccent() : "#ef4444";
-      botStatusDot.style.boxShadow = state.botOnline
-        ? "0 0 0 4px rgba(255, 122, 24, 0.25)"
-        : "0 0 0 4px rgba(239, 68, 68, 0.25)";
-      botStatusText.textContent = state.botOnline ? "Bot Online" : "Bot Offline";
-      addLog(`Bot status changed: ${state.botOnline ? "Online" : "Offline"} (simulated)`, "info");
-    }, 30000);
-
-    function varAccent() {
-      return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#ff7a18";
-    }
-
-    // Initial load
     refreshAll();
-    addLog("Dashboard initialized", "info");
   </script>
 </body>
 </html>
