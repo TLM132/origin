@@ -6,35 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    /* GLOBAL SCROLLBAR THEME */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--accent) #0b0f14;
-}
-
-/* Chrome, Edge, Opera */
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #0b0f14;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
-  border: 2px solid #0b0f14;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-alt);
-}
-
     :root {
       --bg: #050608;
       --bg-alt: #0b0f14;
-      --card: #12151b;
+      --card: #111827;
       --accent: #ff7a18;
       --accent-soft: rgba(255, 122, 24, 0.18);
       --accent-strong: rgba(255, 122, 24, 0.7);
@@ -42,21 +17,43 @@
       --text: #f3f4f6;
       --muted: #9ca3af;
       --border: #1f2933;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --shadow-soft: 0 20px 45px rgba(0, 0, 0, 0.7);
-      --shadow-sm: 0 12px 30px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.85);
+      --shadow-sm: 0 14px 36px rgba(0, 0, 0, 0.65);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) #050608;
+    }
+
+    *::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: #050608;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
+      border: 2px solid #050608;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-alt);
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111827 0, #050608 45%, #000 100%);
+      background:
+        radial-gradient(circle at top, #111827 0, #050608 45%, #000 100%),
+        radial-gradient(circle at bottom, #020617 0, #000 55%, #000 100%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -75,34 +72,34 @@
       content: "";
       position: absolute;
       border-radius: 999px;
-      filter: blur(60px);
-      opacity: 0.35;
+      filter: blur(70px);
+      opacity: 0.4;
       mix-blend-mode: screen;
     }
 
     .glow-orbit::before {
-      width: 420px;
-      height: 420px;
+      width: 460px;
+      height: 460px;
       background: radial-gradient(circle, var(--accent), transparent 70%);
       top: -80px;
       left: -60px;
     }
 
     .glow-orbit::after {
-      width: 380px;
-      height: 380px;
+      width: 420px;
+      height: 420px;
       background: radial-gradient(circle, var(--accent-alt), transparent 70%);
       bottom: -60px;
       right: -40px;
     }
 
     header {
-      padding: 22px 32px 10px;
+      padding: 20px 32px 12px;
       border-bottom: 1px solid rgba(31, 41, 55, 0.7);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px);
       background: linear-gradient(
         to bottom,
-        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.96),
         rgba(15, 23, 42, 0.7)
       );
       position: sticky;
@@ -126,8 +123,8 @@
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
+      width: 46px;
+      height: 46px;
       border-radius: 999px;
       background: conic-gradient(
         from 180deg,
@@ -137,8 +134,9 @@
         var(--accent)
       );
       padding: 2px;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4),
-        0 14px 32px rgba(0, 0, 0, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.5),
+        0 18px 40px rgba(0, 0, 0, 0.95);
     }
 
     .brand-logo-inner {
@@ -151,8 +149,8 @@
       justify-content: center;
       color: #f9fafb;
       font-weight: 700;
-      font-size: 18px;
-      letter-spacing: 0.04em;
+      font-size: 19px;
+      letter-spacing: 0.06em;
     }
 
     .brand-text {
@@ -164,7 +162,7 @@
     .brand-title {
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #f9fafb;
     }
@@ -183,7 +181,7 @@
     .pill {
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.5);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -210,29 +208,33 @@
       cursor: pointer;
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
-      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.6);
+      box-shadow: 0 16px 40px rgba(255, 122, 24, 0.7);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out;
+      transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        background 0.15s ease-out,
+        filter 0.15s ease-out;
     }
 
     .primary-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(255, 122, 24, 0.75);
+      box-shadow: 0 20px 50px rgba(255, 122, 24, 0.85);
       background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+      filter: brightness(1.05);
     }
 
     .primary-btn-icon {
       width: 16px;
       height: 16px;
       border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.4);
+      border: 1px solid rgba(248, 250, 252, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -261,7 +263,7 @@
     .card {
       background: radial-gradient(circle at top left, #111827, #020617);
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.95);
       box-shadow: var(--shadow-soft);
       padding: 18px 18px 16px;
       position: relative;
@@ -273,7 +275,9 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(circle at top right, var(--accent-soft), transparent 60%);
+      background:
+        radial-gradient(circle at top right, var(--accent-soft), transparent 60%),
+        linear-gradient(to bottom right, rgba(15, 23, 42, 0.4), transparent 60%);
       opacity: 0.9;
       pointer-events: none;
     }
@@ -290,7 +294,7 @@
     .card-title {
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #f9fafb;
     }
@@ -305,8 +309,8 @@
       display: inline-flex;
       padding: 3px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.95);
       gap: 3px;
     }
 
@@ -316,19 +320,23 @@
       outline: none;
       padding: 5px 10px;
       font-size: 11px;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       cursor: pointer;
       background: transparent;
       color: var(--muted);
-      transition: background 0.15s ease-out, color 0.15s ease-out,
-        transform 0.15s ease-out;
+      transition:
+        background 0.15s ease-out,
+        color 0.15s ease-out,
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out;
     }
 
     .tab-btn.active {
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
       transform: translateY(-0.5px);
+      box-shadow: 0 10px 24px rgba(255, 122, 24, 0.7);
     }
 
     .card-body {
@@ -391,27 +399,36 @@
     }
 
     .input,
-    .select {
+    .select,
+    textarea.input {
       width: 100%;
       padding: 8px 10px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.95);
       background: #050814;
       color: var(--text);
       font-size: 13px;
       outline: none;
-      transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out,
-        background 0.15s ease-out, transform 0.15s ease-out;
+      transition:
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        background 0.15s ease-out,
+        transform 0.15s ease-out;
+      resize: vertical;
     }
 
-    .input::placeholder {
+    .input::placeholder,
+    textarea.input::placeholder {
       color: rgba(148, 163, 184, 0.7);
     }
 
     .input:focus,
-    .select:focus {
+    .select:focus,
+    textarea.input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(255, 122, 24, 0.7), 0 10px 25px rgba(0, 0, 0, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(255, 122, 24, 0.8),
+        0 12px 28px rgba(0, 0, 0, 0.95);
       background: #050814;
       transform: translateY(-0.5px);
     }
@@ -422,6 +439,10 @@
       background-repeat: no-repeat;
       background-position: right 10px center;
       background-size: 18px 18px;
+    }
+
+    .select[multiple] {
+      background-image: none;
     }
 
     .select-wrapper {
@@ -436,7 +457,7 @@
       width: 16px;
       height: 16px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -455,35 +476,41 @@
     }
 
     .toggle {
-      width: 40px;
-      height: 22px;
+      width: 44px;
+      height: 24px;
       border-radius: 999px;
-      background: rgba(31, 41, 55, 0.9);
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.95);
       position: relative;
       cursor: pointer;
-      transition: background 0.15s ease-out, border-color 0.15s ease-out;
+      transition:
+        background 0.15s ease-out,
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out;
     }
 
     .toggle-knob {
       position: absolute;
-      top: 2px;
-      left: 2px;
+      top: 3px;
+      left: 3px;
       width: 18px;
       height: 18px;
       border-radius: 999px;
       background: #f9fafb;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-      transition: transform 0.15s ease-out, background 0.15s ease-out;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      transition:
+        transform 0.15s ease-out,
+        background 0.15s ease-out;
     }
 
     .toggle.active {
       background: var(--accent-strong);
       border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(255, 122, 24, 0.7);
     }
 
     .toggle.active .toggle-knob {
-      transform: translateX(16px);
+      transform: translateX(18px);
       background: #fff7ed;
     }
 
@@ -498,7 +525,7 @@
     .btn {
       padding: 7px 14px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.95);
       background: #050814;
       color: var(--text);
       font-size: 12px;
@@ -506,13 +533,16 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.15s ease-out, border-color 0.15s ease-out,
-        transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      transition:
+        background 0.15s ease-out,
+        border-color 0.15s ease-out,
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out;
     }
 
     .btn:hover {
-      background: rgba(31, 41, 55, 0.9);
-      border-color: rgba(75, 85, 99, 0.9);
+      background: rgba(31, 41, 55, 0.95);
+      border-color: rgba(75, 85, 99, 0.95);
       transform: translateY(-0.5px);
       box-shadow: var(--shadow-sm);
     }
@@ -521,7 +551,7 @@
       border-color: var(--accent);
       background: linear-gradient(135deg, var(--accent), var(--accent-alt));
       color: #f9fafb;
-      box-shadow: 0 12px 30px rgba(255, 122, 24, 0.7);
+      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.8);
     }
 
     .btn-primary:hover {
@@ -532,7 +562,7 @@
       width: 14px;
       height: 14px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.8);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -540,7 +570,7 @@
     }
 
     .log-list {
-      max-height: 260px;
+      max-height: 280px;
       overflow-y: auto;
       padding-right: 4px;
       margin-top: 8px;
@@ -549,7 +579,7 @@
     .log-item {
       padding: 6px 8px;
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.95);
       background: #050814;
       font-size: 11px;
       display: flex;
@@ -575,13 +605,23 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.95);
       color: rgba(148, 163, 184, 0.9);
     }
 
     .badge-info {
-      border-color: rgba(59, 130, 246, 0.7);
-      color: rgba(59, 130, 246, 0.9);
+      border-color: rgba(59, 130, 246, 0.8);
+      color: rgba(59, 130, 246, 0.95);
+    }
+
+    .badge-success {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: rgba(34, 197, 94, 0.95);
+    }
+
+    .badge-warning {
+      border-color: rgba(234, 179, 8, 0.8);
+      color: rgba(234, 179, 8, 0.95);
     }
 
     .stat-grid {
@@ -600,7 +640,7 @@
 
     .stat-card {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.95);
       background: #050814;
       padding: 8px 10px;
       display: flex;
@@ -669,7 +709,12 @@
       cursor: pointer;
       z-index: 9999;
       display: none;
-      box-shadow: 0 14px 34px rgba(255, 122, 24, 0.8);
+      box-shadow: 0 18px 44px rgba(255, 122, 24, 0.9);
+    }
+
+    #saveBtn span {
+      font-size: 12px;
+      opacity: 0.9;
     }
   </style>
 </head>
@@ -689,9 +734,9 @@
         </div>
       </div>
       <div class="header-actions">
-        <div class="pill">
-          <span class="status-dot"></span>
-          <span>Bot Online</span>
+        <div class="pill" id="botStatusPill">
+          <span class="status-dot" id="botStatusDot"></span>
+          <span id="botStatusText">Bot Online</span>
         </div>
         <button class="primary-btn" id="refreshAllBtn">
           <span class="primary-btn-icon">⟳</span>
@@ -951,383 +996,367 @@
 
   <footer>
     <div class="footer-inner">
-      <div>Origin Admin Dashboard</div>
+      <div>Origin Admin Dashboard • Local control panel</div>
       <div class="footer-right">
-        <span class="dot"></span>
-        <span>Live sync with Discord bot</span>
+        <div class="dot"></div>
+        <span id="footerStatusText">Unsaved changes: none</span>
       </div>
     </div>
   </footer>
 
-  <button id="saveBtn">Save Changes</button>
+  <button id="saveBtn">
+    Save changes
+    <span id="saveBtnHint">Ctrl+S</span>
+  </button>
 
   <script>
-    // Tabs
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    // Simple in-memory state to simulate backend data
+    const state = {
+      antiRaid: {
+        autoKickBots: false,
+        logUnauthorizedBots: false,
+        allowedBotAdders: []
+      },
+      tickets: {
+        panelName: "",
+        description: "",
+        maxPerUser: 3,
+        categoryId: null,
+        panelChannelId: null,
+        pingRoleId: null
+      },
+      staff: {
+        staffRoleId: null,
+        requiredPoints: 10,
+        trackedMembers: [],
+        selectedMemberId: null,
+        selectedMemberPoints: 0
+      },
+      botOnline: true,
+      dirty: false
+    };
 
-        const target = btn.getAttribute("data-section");
-        document.querySelectorAll(".section").forEach(sec => {
-          sec.classList.toggle("active", sec.id === target);
-        });
-      });
-    });
+    const logList = document.getElementById("logList");
+    const saveBtn = document.getElementById("saveBtn");
+    const footerStatusText = document.getElementById("footerStatusText");
+    const botStatusDot = document.getElementById("botStatusDot");
+    const botStatusText = document.getElementById("botStatusText");
 
-    // Toggles
-    document.querySelectorAll(".toggle").forEach(t => {
-      t.addEventListener("click", () => {
-        t.classList.toggle("active");
-      });
-    });
-
-    let pendingChanges = false;
-
-    function showSaveButton() {
-      const btn = document.getElementById("saveBtn");
-      btn.style.display = "block";
-      pendingChanges = true;
-    }
-
-    document.addEventListener("input", showSaveButton);
-    document.addEventListener("change", showSaveButton);
-    document.querySelectorAll(".toggle").forEach(t => {
-      t.addEventListener("click", showSaveButton);
-    });
-
-    function cleanObject(obj) {
-      const out = {};
-      Object.keys(obj).forEach(key => {
-        const val = obj[key];
-        if (Array.isArray(val)) {
-          if (val.length > 0) out[key] = val;
-        } else if (val !== null && val !== "" && val !== false) {
-          out[key] = val;
-        }
-      });
-      return out;
-    }
-
-    async function saveDashboard() {
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.textContent = "Saving...";
-
-      const payload = {
-        antiRaid: {
-          autoKick: document.getElementById("autoKickBotsToggle").classList.contains("active"),
-          logBots: document.getElementById("logUnauthorizedBotsToggle").classList.contains("active"),
-          allowedBotAdders: Array.from(
-            document.getElementById("allowedBotAddersDropdown").selectedOptions
-          ).map(o => o.value)
-        },
-        tickets: {
-          panelName: document.getElementById("ticketPanelNameInput").value || null,
-          description: document.getElementById("ticketDescriptionInput").value || null,
-          maxPerUser: document.getElementById("ticketMaxPerUserInput").value || null,
-          category: document.getElementById("ticketCategoryDropdown").value || null,
-          panelChannel: document.getElementById("ticketPanelChannelDropdown").value || null,
-          pingRole: document.getElementById("ticketPingRoleDropdown").value || null
-        },
-        staff: {
-          staffRole: document.getElementById("staffRoleDropdown").value || null,
-          requiredPoints: document.getElementById("requiredPointsInput").value || null,
-          member: document.getElementById("staffMemberDropdown").value || null,
-          memberPoints: document.getElementById("staffMemberPointsInput").value || null
-        }
-      };
-
-      const cleanedPayload = {
-        antiRaid: cleanObject(payload.antiRaid),
-        tickets: cleanObject(payload.tickets),
-        staff: cleanObject(payload.staff)
-      };
-
-      try {
-        await fetch("/api/save.json", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(cleanedPayload)
-        });
-        addLog("Settings saved", "Just now", "Info");
-      } catch (e) {
-        console.error("Save failed", e);
-        addLog("Save failed", "Just now", "Error");
-      }
-
-      saveBtn.textContent = "Saved!";
-      setTimeout(() => {
-        saveBtn.style.display = "none";
-        saveBtn.textContent = "Save Changes";
-      }, 1500);
-
-      pendingChanges = false;
-    }
-
-    async function saveEmpty() {
-      try {
-        await fetch("/api/save.json", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({})
-        });
-        addLog("Settings reset", "Just now", "Info");
-      } catch (e) {
-        console.error("Reset save failed", e);
-        addLog("Reset failed", "Just now", "Error");
-      }
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.style.display = "none";
-      pendingChanges = false;
-    }
-
-    function addLog(text, time, type) {
-      const logList = document.getElementById("logList");
+    function addLog(message, type = "info") {
       const item = document.createElement("div");
       item.className = "log-item";
 
       const left = document.createElement("div");
-      const logText = document.createElement("div");
-      logText.className = "log-text";
-      logText.textContent = text;
-      const logTime = document.createElement("div");
-      logTime.className = "log-time";
-      logTime.textContent = time;
-      left.appendChild(logText);
-      left.appendChild(logTime);
+      const text = document.createElement("div");
+      text.className = "log-text";
+      text.textContent = message;
+
+      const time = document.createElement("div");
+      time.className = "log-time";
+      time.textContent = new Date().toLocaleTimeString();
+
+      left.appendChild(text);
+      left.appendChild(time);
 
       const badge = document.createElement("span");
       badge.className = "badge";
-      if (type === "Info") badge.classList.add("badge-info");
-      badge.textContent = type;
+      if (type === "info") badge.classList.add("badge-info");
+      if (type === "success") badge.classList.add("badge-success");
+      if (type === "warning") badge.classList.add("badge-warning");
+      badge.textContent = type.charAt(0).toUpperCase() + type.slice(1);
 
       item.appendChild(left);
       item.appendChild(badge);
+
       logList.prepend(item);
     }
 
-    document.getElementById("resetAntiRaidBtn").addEventListener("click", async () => {
-      document.getElementById("autoKickBotsToggle").classList.remove("active");
-      document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
-      document.getElementById("allowedBotAddersDropdown").selectedIndex = -1;
-      await saveEmpty();
-    });
-
-    document.getElementById("resetTicketsBtn").addEventListener("click", async () => {
-      document.getElementById("ticketPanelNameInput").value = "";
-      document.getElementById("ticketDescriptionInput").value = "";
-      document.getElementById("ticketMaxPerUserInput").value = 3;
-      document.getElementById("ticketCategoryDropdown").selectedIndex = 0;
-      document.getElementById("ticketPanelChannelDropdown").selectedIndex = 0;
-      document.getElementById("ticketPingRoleDropdown").selectedIndex = 0;
-      await saveEmpty();
-    });
-
-    document.getElementById("resetStaffBtn").addEventListener("click", async () => {
-      document.getElementById("staffRoleDropdown").selectedIndex = 0;
-      document.getElementById("requiredPointsInput").value = 10;
-      document.getElementById("staffMemberDropdown").selectedIndex = 0;
-      document.getElementById("staffMemberPointsInput").value = 0;
-      document.getElementById("requiredPointsStat").textContent = "10";
-      document.getElementById("staffRoleStat").textContent = "Not set";
-      await saveEmpty();
-    });
-
-    document.getElementById("saveAntiRaidBtn").addEventListener("click", saveDashboard);
-    document.getElementById("saveStaffBtn").addEventListener("click", saveDashboard);
-    document.getElementById("deployTicketsBtn").addEventListener("click", saveDashboard);
-    document.getElementById("saveBtn").addEventListener("click", saveDashboard);
-
-    document.getElementById("refreshAllBtn").addEventListener("click", async () => {
-      await loadAllData();
-      addLog("Data refreshed", "Just now", "Info");
-    });
-
-    async function loadMembers() {
-      try {
-        const res = await fetch("/api/members");
-        const data = await res.json();
-
-        const allowed = document.getElementById("allowedBotAddersDropdown");
-        const staffMember = document.getElementById("staffMemberDropdown");
-
-        allowed.innerHTML = "";
-        staffMember.innerHTML = "";
-
-        data.forEach(m => {
-          const opt1 = document.createElement("option");
-          opt1.value = m.id;
-          opt1.textContent = m.name;
-          allowed.appendChild(opt1);
-
-          const opt2 = document.createElement("option");
-          opt2.value = m.id;
-          opt2.textContent = m.name;
-          staffMember.appendChild(opt2);
-        });
-
-        addLog("Members loaded", "Just now", "Info");
-      } catch (e) {
-        console.error("Failed to load members", e);
-        addLog("Failed to load members", "Just now", "Error");
+    function markDirty() {
+      if (!state.dirty) {
+        state.dirty = true;
+        saveBtn.style.display = "block";
+        footerStatusText.textContent = "Unsaved changes: pending";
       }
     }
 
-    async function loadRoles() {
-      try {
-        const res = await fetch("/api/roles");
-        const data = await res.json();
-
-        const staffRole = document.getElementById("staffRoleDropdown");
-        const ticketPingRole = document.getElementById("ticketPingRoleDropdown");
-
-        staffRole.innerHTML = "";
-        ticketPingRole.innerHTML = "";
-
-        data.forEach(r => {
-          const opt1 = document.createElement("option");
-          opt1.value = r.id;
-          opt1.textContent = r.name;
-          staffRole.appendChild(opt1);
-
-          const opt2 = document.createElement("option");
-          opt2.value = r.id;
-          opt2.textContent = r.name;
-          ticketPingRole.appendChild(opt2);
-        });
-
-        addLog("Roles loaded", "Just now", "Info");
-      } catch (e) {
-        console.error("Failed to load roles", e);
-        addLog("Failed to load roles", "Just now", "Error");
-      }
+    function clearDirty() {
+      state.dirty = false;
+      saveBtn.style.display = "none";
+      footerStatusText.textContent = "Unsaved changes: none";
     }
 
-    async function loadChannels() {
-      try {
-        const res = await fetch("/api/channels");
-        const data = await res.json();
+    // Tabs
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.section;
 
-        const ticketPanelChannel = document.getElementById("ticketPanelChannelDropdown");
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
 
-        ticketPanelChannel.innerHTML = "";
+        document.querySelectorAll(".section").forEach(sec => {
+          sec.classList.toggle("active", sec.id === target);
+        });
 
-        data.forEach(c => {
+        addLog(`Switched to ${btn.textContent.trim()} tab`, "info");
+      });
+    });
+
+    // Toggles
+    function setupToggle(id, key) {
+      const el = document.getElementById(id);
+      el.addEventListener("click", () => {
+        el.classList.toggle("active");
+        const active = el.classList.contains("active");
+        state.antiRaid[key] = active;
+        markDirty();
+        addLog(`${key.replace(/([A-Z])/g, " $1")} set to ${active ? "enabled" : "disabled"}`, "info");
+      });
+    }
+
+    setupToggle("autoKickBotsToggle", "autoKickBots");
+    setupToggle("logUnauthorizedBotsToggle", "logUnauthorizedBots");
+
+    // Fake data loaders
+    function loadFakeMembers() {
+      const dropdowns = [
+        document.getElementById("allowedBotAddersDropdown"),
+        document.getElementById("staffMemberDropdown")
+      ];
+
+      const members = [
+        { id: "1", name: "Tyler" },
+        { id: "2", name: "ModeratorOne" },
+        { id: "3", name: "HelperTwo" },
+        { id: "4", name: "TrustedBotAdder" }
+      ];
+
+      dropdowns.forEach(dd => {
+        dd.innerHTML = "";
+        members.forEach(m => {
+          const opt = document.createElement("option");
+          opt.value = m.id;
+          opt.textContent = m.name;
+          dd.appendChild(opt);
+        });
+      });
+
+      state.staff.trackedMembers = members.map(m => ({ id: m.id, name: m.name, points: 0 }));
+      document.getElementById("trackedMembersStat").textContent = state.staff.trackedMembers.length;
+    }
+
+    function loadFakeRoles() {
+      const roleDropdowns = [
+        document.getElementById("ticketPingRoleDropdown"),
+        document.getElementById("staffRoleDropdown")
+      ];
+
+      const roles = [
+        { id: "r1", name: "@Support" },
+        { id: "r2", name: "@Staff" },
+        { id: "r3", name: "@Admin" }
+      ];
+
+      roleDropdowns.forEach(dd => {
+        dd.innerHTML = "";
+        roles.forEach(r => {
+          const opt = document.createElement("option");
+          opt.value = r.id;
+          opt.textContent = r.name;
+          dd.appendChild(opt);
+        });
+      });
+    }
+
+    function loadFakeChannels() {
+      const channelDropdowns = [
+        document.getElementById("ticketCategoryDropdown"),
+        document.getElementById("ticketPanelChannelDropdown")
+      ];
+
+      const categories = [
+        { id: "c1", name: "#tickets" },
+        { id: "c2", name: "#support" },
+        { id: "c3", name: "#appeals" }
+      ];
+
+      channelDropdowns.forEach(dd => {
+        dd.innerHTML = "";
+        categories.forEach(c => {
           const opt = document.createElement("option");
           opt.value = c.id;
           opt.textContent = c.name;
-          ticketPanelChannel.appendChild(opt);
+          dd.appendChild(opt);
         });
-
-        addLog("Channels loaded", "Just now", "Info");
-      } catch (e) {
-        console.error("Failed to load channels", e);
-        addLog("Failed to load channels", "Just now", "Error");
-      }
+      });
     }
 
-    async function loadCategories() {
-      try {
-        const res = await fetch("/api/categories");
-        const data = await res.json();
-
-        const ticketCategory = document.getElementById("ticketCategoryDropdown");
-
-        ticketCategory.innerHTML = "";
-
-        data.forEach(cat => {
-          const opt = document.createElement("option");
-          opt.value = cat.id;
-          opt.textContent = cat.name;
-          ticketCategory.appendChild(opt);
-        });
-
-        addLog("Categories loaded", "Just now", "Info");
-      } catch (e) {
-        console.error("Failed to load categories", e);
-        addLog("Failed to load categories", "Just now", "Error");
-      }
+    function refreshAll() {
+      loadFakeMembers();
+      loadFakeRoles();
+      loadFakeChannels();
+      addLog("Refreshed dashboard data", "success");
     }
 
-    async function loadSavedSettings() {
-      try {
-        const res = await fetch("/api/save.json");
-        const data = await res.json();
-
-        if (data.antiRaid) {
-          if (data.antiRaid.autoKick) {
-            document.getElementById("autoKickBotsToggle").classList.add("active");
-          }
-          if (data.antiRaid.logBots) {
-            document.getElementById("logUnauthorizedBotsToggle").classList.add("active");
-          }
-          if (Array.isArray(data.antiRaid.allowedBotAdders)) {
-            const allowedSelect = document.getElementById("allowedBotAddersDropdown");
-            const values = new Set(data.antiRaid.allowedBotAdders);
-            Array.from(allowedSelect.options).forEach(opt => {
-              opt.selected = values.has(opt.value);
-            });
-          }
-        }
-
-        if (data.tickets) {
-          if (data.tickets.panelName) {
-            document.getElementById("ticketPanelNameInput").value = data.tickets.panelName;
-          }
-          if (data.tickets.description) {
-            document.getElementById("ticketDescriptionInput").value = data.tickets.description;
-          }
-          if (data.tickets.maxPerUser) {
-            document.getElementById("ticketMaxPerUserInput").value = data.tickets.maxPerUser;
-          }
-          if (data.tickets.category) {
-            document.getElementById("ticketCategoryDropdown").value = data.tickets.category;
-          }
-          if (data.tickets.panelChannel) {
-            document.getElementById("ticketPanelChannelDropdown").value = data.tickets.panelChannel;
-          }
-          if (data.tickets.pingRole) {
-            document.getElementById("ticketPingRoleDropdown").value = data.tickets.pingRole;
-          }
-        }
-
-        if (data.staff) {
-          if (data.staff.staffRole) {
-            document.getElementById("staffRoleDropdown").value = data.staff.staffRole;
-            document.getElementById("staffRoleStat").textContent = "Set";
-          }
-          if (data.staff.requiredPoints) {
-            document.getElementById("requiredPointsInput").value = data.staff.requiredPoints;
-            document.getElementById("requiredPointsStat").textContent = data.staff.requiredPoints;
-          }
-          if (data.staff.member) {
-            document.getElementById("staffMemberDropdown").value = data.staff.member;
-          }
-          if (data.staff.memberPoints) {
-            document.getElementById("staffMemberPointsInput").value = data.staff.memberPoints;
-          }
-        }
-
-        addLog("Saved settings loaded", "Just now", "Info");
-      } catch (e) {
-        console.error("Failed to load saved settings", e);
-        addLog("Failed to load saved settings", "Just now", "Error");
-      }
-    }
-
-    async function loadAllData() {
-      await Promise.all([
-        loadMembers(),
-        loadRoles(),
-        loadChannels(),
-        loadCategories()
-      ]);
-      await loadSavedSettings();
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      loadAllData();
+    document.getElementById("refreshAllBtn").addEventListener("click", () => {
+      refreshAll();
     });
+
+    // Tickets inputs
+    document.getElementById("ticketPanelNameInput").addEventListener("input", e => {
+      state.tickets.panelName = e.target.value;
+      markDirty();
+    });
+
+    document.getElementById("ticketDescriptionInput").addEventListener("input", e => {
+      state.tickets.description = e.target.value;
+      markDirty();
+    });
+
+    document.getElementById("ticketMaxPerUserInput").addEventListener("input", e => {
+      state.tickets.maxPerUser = Number(e.target.value) || 1;
+      markDirty();
+    });
+
+    document.getElementById("ticketCategoryDropdown").addEventListener("change", e => {
+      state.tickets.categoryId = e.target.value;
+      markDirty();
+    });
+
+    document.getElementById("ticketPanelChannelDropdown").addEventListener("change", e => {
+      state.tickets.panelChannelId = e.target.value;
+      markDirty();
+    });
+
+    document.getElementById("ticketPingRoleDropdown").addEventListener("change", e => {
+      state.tickets.pingRoleId = e.target.value;
+      markDirty();
+    });
+
+    document.getElementById("resetTicketsBtn").addEventListener("click", () => {
+      document.getElementById("ticketPanelNameInput").value = "";
+      document.getElementById("ticketDescriptionInput").value = "";
+      document.getElementById("ticketMaxPerUserInput").value = 3;
+      state.tickets = {
+        panelName: "",
+        description: "",
+        maxPerUser: 3,
+        categoryId: null,
+        panelChannelId: null,
+        pingRoleId: null
+      };
+      markDirty();
+      addLog("Ticket settings reset", "warning");
+    });
+
+    document.getElementById("deployTicketsBtn").addEventListener("click", () => {
+      addLog("Ticket panel deployed (simulate sending message to Discord)", "success");
+      clearDirty();
+    });
+
+    // Anti-raid buttons
+    document.getElementById("resetAntiRaidBtn").addEventListener("click", () => {
+      state.antiRaid = {
+        autoKickBots: false,
+        logUnauthorizedBots: false,
+        allowedBotAdders: []
+      };
+      document.getElementById("autoKickBotsToggle").classList.remove("active");
+      document.getElementById("logUnauthorizedBotsToggle").classList.remove("active");
+      document.getElementById("allowedBotAddersDropdown").selectedIndex = -1;
+      markDirty();
+      addLog("Anti‑raid settings reset", "warning");
+    });
+
+    document.getElementById("saveAntiRaidBtn").addEventListener("click", () => {
+      const allowedSelect = document.getElementById("allowedBotAddersDropdown");
+      const selected = Array.from(allowedSelect.selectedOptions).map(o => o.value);
+      state.antiRaid.allowedBotAdders = selected;
+      addLog("Anti‑raid settings saved", "success");
+      clearDirty();
+    });
+
+    // Staff settings
+    document.getElementById("staffRoleDropdown").addEventListener("change", e => {
+      state.staff.staffRoleId = e.target.value;
+      const label = e.target.selectedOptions[0]?.textContent || "Not set";
+      document.getElementById("staffRoleStat").textContent = label;
+      markDirty();
+    });
+
+    document.getElementById("requiredPointsInput").addEventListener("input", e => {
+      const val = Number(e.target.value) || 1;
+      state.staff.requiredPoints = val;
+      document.getElementById("requiredPointsStat").textContent = val;
+      markDirty();
+    });
+
+    document.getElementById("staffMemberDropdown").addEventListener("change", e => {
+      const id = e.target.value;
+      state.staff.selectedMemberId = id;
+      const member = state.staff.trackedMembers.find(m => m.id === id);
+      const points = member ? member.points : 0;
+      state.staff.selectedMemberPoints = points;
+      document.getElementById("staffMemberPointsInput").value = points;
+      markDirty();
+    });
+
+    document.getElementById("staffMemberPointsInput").addEventListener("input", e => {
+      const val = Number(e.target.value) || 0;
+      state.staff.selectedMemberPoints = val;
+      const member = state.staff.trackedMembers.find(m => m.id === state.staff.selectedMemberId);
+      if (member) member.points = val;
+      markDirty();
+    });
+
+    document.getElementById("resetStaffBtn").addEventListener("click", () => {
+      state.staff.requiredPoints = 10;
+      state.staff.selectedMemberPoints = 0;
+      document.getElementById("requiredPointsInput").value = 10;
+      document.getElementById("requiredPointsStat").textContent = 10;
+      document.getElementById("staffMemberPointsInput").value = 0;
+      markDirty();
+      addLog("Staff settings reset", "warning");
+    });
+
+    document.getElementById("saveStaffBtn").addEventListener("click", () => {
+      addLog("Staff settings saved", "success");
+      clearDirty();
+    });
+
+    // Save button
+    saveBtn.addEventListener("click", () => {
+      addLog("All pending changes saved (local only)", "success");
+      clearDirty();
+    });
+
+    document.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        if (state.dirty) {
+          addLog("Ctrl+S pressed: changes saved", "success");
+          clearDirty();
+        }
+      }
+    });
+
+    // Simulate bot status toggle every 30s (for visual interest)
+    setInterval(() => {
+      state.botOnline = !state.botOnline;
+      botStatusDot.style.background = state.botOnline ? varAccent() : "#ef4444";
+      botStatusDot.style.boxShadow = state.botOnline
+        ? "0 0 0 4px rgba(255, 122, 24, 0.25)"
+        : "0 0 0 4px rgba(239, 68, 68, 0.25)";
+      botStatusText.textContent = state.botOnline ? "Bot Online" : "Bot Offline";
+      addLog(`Bot status changed: ${state.botOnline ? "Online" : "Offline"} (simulated)`, "info");
+    }, 30000);
+
+    function varAccent() {
+      return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#ff7a18";
+    }
+
+    // Initial load
+    refreshAll();
+    addLog("Dashboard initialized", "info");
   </script>
 </body>
 </html>
