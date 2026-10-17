@@ -6,12 +6,9 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const app = express();
 app.use(express.json());
 
-// Serve EVERYTHING inside /public
-app.use(express.static(path.join(__dirname, "public")));
-
-// Serve dashboard.html on root
+// Serve dashboard.html directly from root
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "dashboard.html"));
+  res.sendFile(path.join(__dirname, "dashboard.html"));
 });
 
 // Discord bot
@@ -20,18 +17,6 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildModeration,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.GuildPresences,
-    GatewayIntentBits.GuildIntegrations,
-    GatewayIntentBits.GuildWebhooks,
-    GatewayIntentBits.GuildScheduledEvents,
-    GatewayIntentBits.GuildMessageTyping,
-    GatewayIntentBits.GuildEmojisAndStickers,
-    GatewayIntentBits.GuildInvites,
-    GatewayIntentBits.GuildBans,
-    GatewayIntentBits.GuildMessagePolls,
     GatewayIntentBits.MessageContent
   ]
 });
